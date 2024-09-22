@@ -1,0 +1,113 @@
+.header {
+    padding: 50px 0;
+}
+.containerHeader {
+    width: 90%;
+    padding: 0 15px;
+    margin: auto;
+}
+.container {
+    margin: auto;
+    column-width: 320px;
+    column-gap: 15px;
+    width: 90%;
+}
+.wrapperHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    width: 20%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10%;
+    margin-bottom: 10px;
+
+}
+.logoImg {
+    width: 100%;
+    height: auto;
+    /* border-bottom: 1px solid #ccc; */
+    object-fit: cover;
+    
+}
+#inputSearch {
+    width: 50%;
+    height: 50px;
+
+}
+.formSelectBoard {
+    width: 20%;
+}
+.card {
+    -webkit-column-break-inside: avoid;
+    margin-bottom: 10px;
+}
+.partOneOfCard1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.descriptionCard1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+    padding: 0 10px;
+    width: 300px;
+}
+.avatarCard1 {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+overflow: hidden;
+margin-right: 20px;
+
+}
+.imgAvatarCard1 {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.textCard1{
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+}
+.imgCardWrap {
+    overflow: hidden;
+    border-radius: 10%;
+    margin-bottom: 10px;
+
+}
+.imgCard {
+    width: 100%;
+    height: auto;
+    /* border-bottom: 1px solid #ccc; */
+    object-fit: cover;
+    
+}
+.textCard {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    text-align: left;
+    vertical-align: top;
+}
+.partTwoOfCard1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.addToBoard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.complainForm {
+    margin-bottom: 50px;
+}
