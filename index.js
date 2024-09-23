@@ -1,12 +1,12 @@
 const pinterest = document.getElementById('pinterest');
 
 //header
-const header = document.createElement('div'); 
+const header = document.createElement('header'); 
 header.className = 'header';
 
  //контейнер для header
 const containerHeader = document.createElement('div');
-containerHeader.className = 'containerHeader';
+containerHeader.className = 'container';
 
 //обертка для header
 const wrapperHeader = document.createElement('div'); 
