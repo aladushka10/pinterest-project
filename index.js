@@ -84,17 +84,20 @@ const partTwoOfCard1 = document.createElement('div');
 partTwoOfCard1.className = 'partTwoOfCard1';
 // Кнопка Добавить на доску
 const addBtn = document.createElement('button');
-addBtn.className = 'addBtn';
+addBtn.id = 'addBtn';
+addBtn.className = 'btn';
 const addBtnText = document.createTextNode('Добавить на доску');
 addBtn.append(addBtnText);
 // Кнопка Скрыть со страницы
 const hideBtn = document.createElement('button');
-hideBtn.className = 'hideBtn';
+hideBtn.id = 'hideBtn';
+hideBtn.className = 'btn';
 const hideBtnText = document.createTextNode('Скрыть со страницы');
 hideBtn.append(hideBtnText);
 // Кнопка Пожаловаться
 const complainBtn = document.createElement('button');
-complainBtn.className = 'complainBtn';
+complainBtn.id = 'complainBtn';
+complainBtn.className = 'btn';
 const complainBtnText = document.createTextNode('Пожаловаться');
 complainBtn.append(complainBtnText);
 
@@ -395,9 +398,9 @@ opinionSelectBoardThree.append(opinionSelectBoardTextThree);
 mainBoard.append(containerMainBoard);
 containerMainBoard.append(wrapperMainBoard);
 wrapperMainBoard.append(card1, card2, card3, card4,card5, card6, card7, card8, card9, card10);
-card1.append(partOneOfCard1, partTwoOfCard1);
+card1.append(partOneOfCard1);
 partOneOfCard1.append(imgCard1Wrap, descriptionCard1);
-imgCard1Wrap.append(imgCard1);
+imgCard1Wrap.append(imgCard1, partTwoOfCard1);
 descriptionCard1.append(avatarCard1, textCard1Wrap);
 textCard1Wrap.append(textCard1);
 textCard1.append(textPCard1);
