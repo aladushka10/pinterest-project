@@ -1,5 +1,6 @@
 const pinterest = document.getElementById('pinterest');
 
+let a;
 fetch('https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards')
 .then(response => {
     if (!response.ok) {
@@ -7,7 +8,8 @@ fetch('https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards')
     }
     return response.json();
 })
-.then(json => showAllCards(json))
+.then((json) => {a = json;
+    showAllCards(json)})
 .catch(err => console.error(`Fetch problem: ${err.message}`));
 
 //header
@@ -26,13 +28,38 @@ wrapperHeader.className = 'wrapperHeader';
 const logo = document.createElement('div'); 
 logo.className = 'logo';
 const logoImg = document.createElement('img');
-logoImg.src = './img/card1.jpg';
+logoImg.src = './img/Pinterest_Logo.png';
 logoImg.className = 'logoImg';
 
 //строка поиска
+const form = document.createElement('form');
+form.setAttribute('id', 'form1');
 const inputSearch = document.createElement('input');
-inputSearch.value = 'Поиск';
-inputSearch.id = 'inputSearch';
+inputSearch.setAttribute('id', 'search');
+inputSearch.setAttribute('type', 'text');
+inputSearch.setAttribute('placeholder', 'Поиск');
+
+const results = document.createElement('div');
+results.setAttribute('id', 'results');
+inputSearch.append(results);
+
+function removeElementsByClass(className){
+    const elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
+function d (){
+const searchValue = inputSearch.value.toLowerCase();
+    const filteredCards = a.filter(card => card.description.toLowerCase().includes(searchValue));
+    showAllCards(filteredCards);
+};
+form.addEventListener('submit', (e) =>{
+    e.preventDefault();
+    removeElementsByClass('card');
+    d();
+});
+
 
 //меню Выбрать доску
 const formSelectBoard = document.createElement('form');
@@ -85,9 +112,9 @@ function showAllCards(cards) {
     descriptionCard1.className = 'descriptionCard1';
     const avatarCard1 = document.createElement('div');
     avatarCard1.className = 'avatarCard1';
-    const imgAvatarCard1 = document.createElement('img');
-    imgAvatarCard1.className = 'imgAvatarCard1';
-    imgAvatarCard1.src = card.avatar;
+    // const imgAvatarCard1 = document.createElement('img');
+    // imgAvatarCard1.className = 'imgAvatarCard1';
+    // imgAvatarCard1.src = card.avatar;
     const textCard1Wrap = document.createElement('div');
     textCard1Wrap.className = 'textCardWrap';
     const textCard1 = document.createElement('p');
@@ -100,7 +127,7 @@ function showAllCards(cards) {
     descriptionCard1.append(avatarCard1, textCard1Wrap);
     textCard1Wrap.append(textCard1);
     textCard1.append(textPCard1);
-    avatarCard1.append(imgAvatarCard1);
+    // avatarCard1.append(imgAvatarCard1);
     console.log(card.id);
     });
 }
@@ -193,7 +220,8 @@ const complain4Value = document.createTextNode('Это моя интеллект
 pinterest.append(header, mainBoard);
 header.append(containerHeader);
 containerHeader.append(wrapperHeader);
-wrapperHeader.append(logo, inputSearch, formSelectBoard);
+wrapperHeader.append(logo, form, formSelectBoard);
+form.append(inputSearch)
 logo.append(logoImg);
 formSelectBoard.append(selectBoard);
 selectBoard.append(opinionSelectBoard, opinionSelectBoardOne, opinionSelectBoardTwo, opinionSelectBoardThree);
