@@ -1,3 +1,25 @@
+window.addEventListener("storage", () => {})
+
+let hiddenIds = getFromLocalStorage()
+let cardItems = []
+
+function getFromLocalStorage() {
+  if (localStorage.getItem("hiddenIds")) {
+    return JSON.parse(localStorage.getItem("hiddenIds"))
+  }
+  return []
+}
+
+function setInLocalStorage(hiddenIds) {
+  localStorage.setItem("hiddenIds", JSON.stringify(hiddenIds))
+}
+document.addEventListener("DOMContentLoaded", () => {
+  // if (todos.length > 0) {
+  //   todos.forEach((card) => {
+  //     createItem(card)
+  //   })
+  // }
+})
 const pinterest = document.getElementById("pinterest")
 
 fetch("https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards")
@@ -7,8 +29,29 @@ fetch("https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards")
     }
     return response.json()
   })
-  .then((json) => showAllCards(json))
+  .then((json) => formCardsArray(json))
   .catch((err) => console.error(`Fetch problem: ${err.message}`))
+
+function formCardsArray(cards) {
+  cardItems = []
+
+  cards.forEach((card) => {
+    if (!hiddenIds.includes(card.id)) {
+      cardItems.push(card)
+    }
+  })
+  console.log(cardItems)
+  removeElementsByClass("card")
+  showAllCards(cardItems)
+  console.log(hiddenIds)
+}
+
+function removeElementsByClass(className) {
+  const elements = document.getElementsByClassName(className)
+  while (elements.length > 0) {
+    elements[0].parentNode.removeChild(elements[0])
+  }
+}
 
 //header
 const header = document.createElement("header")
@@ -64,6 +107,8 @@ containerMainBoard.className = "container"
 const wrapperMainBoard = document.createElement("div")
 wrapperMainBoard.className = "wrapperMainBoard"
 
+let lastComplainIdClicked = -1
+
 function showAllCards(cards) {
   cards.forEach((card) => {
     //карточки
@@ -116,7 +161,9 @@ function showAllCards(cards) {
     const hideBtnText = document.createTextNode("Скрыть со страницы")
     hideBtn.append(hideBtnText)
     hideBtn.addEventListener("click", () => {
-      card1.style.display = "none"
+      card1.style.filter = "blur(8px)"
+      hiddenIds.push(card.id)
+      setInLocalStorage(hiddenIds)
     })
 
     // Кнопка Пожаловаться
@@ -126,6 +173,7 @@ function showAllCards(cards) {
     const complainBtnText = document.createTextNode("Пожаловаться")
     complainBtn.append(complainBtnText)
     complainBtn.addEventListener("click", () => {
+      lastComplainIdClicked = card.id
       modalBackground.style.display = "block"
       complainForm.style.display = "block"
     })
@@ -223,6 +271,13 @@ modalSendButton.className = "modal-button"
 modalSendButton.id = "modalSendBtn"
 modalSendButton.append(sendBtnText)
 modalSendButton.type = "submit"
+modalSendButton.addEventListener("click", () => {
+  //   alert("Ваша жалоба успешно отправлена")
+  hiddenIds.push(lastComplainIdClicked)
+  setInLocalStorage(hiddenIds)
+  modalBackground.style.display = "none"
+  formCardsArray(cardItems)
+})
 
 buttonContainer.append(modalCancelButton, modalSendButton)
 // complainForm.append(buttonContainer)
@@ -230,42 +285,6 @@ modalContent.append(modalTitle, complainForm, buttonContainer)
 modalWindow.append(modalContent)
 modalBackground.append(modalWindow)
 document.body.append(modalBackground)
-
-// function createComplain(complain) {}
-
-// //Жалоба 1
-// const complain1 = document.createElement("div")
-// complain1.className = "complain"
-// const radioComplain1 = document.createElement("input")
-// radioComplain1.className = "radioComplain1"
-// radioComplain1.type = "radio"
-// const complain1Value = document.createTextNode("Спам")
-
-// //Жалоба 2
-// const complain2 = document.createElement("div")
-// complain2.className = "complain"
-// const radioComplain2 = document.createElement("input")
-// radioComplain2.className = "radioComplain"
-// radioComplain2.type = "radio"
-// const complain2Value = document.createTextNode("Ложная информация")
-
-// //Жалоба 3
-// const complain3 = document.createElement("div")
-// complain3.className = "complain"
-// const radioComplain3 = document.createElement("input")
-// radioComplain3.className = "radioComplain"
-// radioComplain3.type = "radio"
-// const complain3Value = document.createTextNode("Нарушение конфиденциальности")
-
-// //Жалоба 4
-// const complain4 = document.createElement("div")
-// complain4.className = "complain"
-// const radioComplain4 = document.createElement("input")
-// radioComplain4.className = "radioComplain"
-// radioComplain4.type = "radio"
-// const complain4Value = document.createTextNode(
-//   "Это моя интеллектуальная собственность"
-// )
 
 pinterest.append(header, mainBoard)
 header.append(containerHeader)
@@ -286,14 +305,3 @@ opinionSelectBoardThree.append(opinionSelectBoardTextThree)
 
 mainBoard.append(containerMainBoard)
 containerMainBoard.append(wrapperMainBoard)
-
-// complainForm.append(
-//   /*complainTitle,*/ complain1,
-//   complain2,
-//   complain3,
-//   complain4
-// )
-// complain1.append(radioComplain1, complain1Value)
-// complain2.append(radioComplain2, complain2Value)
-// complain3.append(radioComplain3, complain3Value)
-// complain4.append(radioComplain4, complain4Value)
