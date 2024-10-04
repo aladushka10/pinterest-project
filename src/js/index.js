@@ -1,6 +1,6 @@
 const pinterest = document.getElementById('pinterest');
 
-let a;
+let cardData;
 fetch('https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards')
 .then(response => {
     if (!response.ok) {
@@ -8,7 +8,7 @@ fetch('https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards')
     }
     return response.json();
 })
-.then((json) => {a = json;
+.then((json) => {cardData = json;
     showAllCards(json)})
 .catch(err => console.error(`Fetch problem: ${err.message}`));
 
@@ -48,16 +48,22 @@ function removeElementsByClass(className){
     while(elements.length > 0){
         elements[0].parentNode.removeChild(elements[0]);
     }
-}
-function d (){
-const searchValue = inputSearch.value.toLowerCase();
-    const filteredCards = a.filter(card => card.description.toLowerCase().includes(searchValue));
+};
+function normalizeString(str) {
+    return str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '') 
+        .replace(/\s+/g, '')
+        .toLowerCase(); 
+};
+
+function searchCards (){
+const searchValue = normalizeString(inputSearch.value);
+    const filteredCards = cardData.filter(card => normalizeString(card.description).includes(searchValue));
     showAllCards(filteredCards);
 };
 form.addEventListener('submit', (e) =>{
     e.preventDefault();
     removeElementsByClass('card');
-    d();
+    searchCards();
 });
 
 
