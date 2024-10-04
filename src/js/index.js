@@ -93,101 +93,107 @@ function showAllCards(cards) {
     const textCard1 = document.createElement('p');
     textCard1.className = 'textCard';
     const textPCard1 = document.createTextNode(`${card.description}`);
+    // часть карточки при наведении
+    const partTwoOfCard1 = document.createElement('div');
+    partTwoOfCard1.className = 'partTwoOfCard1';
+    // Кнопка Добавить на доску
+    const addBtn = document.createElement('button');
+    addBtn.id = 'addBtn';
+    addBtn.className = 'btn';
+    const addBtnText = document.createTextNode('Добавить на доску');
+    addBtn.append(addBtnText);
+    // Кнопка Скрыть со страницы
+    const hideBtn = document.createElement('button');
+    hideBtn.id = 'hideBtn';
+    hideBtn.className = 'btn';
+    const hideBtnText = document.createTextNode('Скрыть со страницы');
+    hideBtn.append(hideBtnText);
+    // Кнопка Пожаловаться
+    const complainBtn = document.createElement('button');
+    complainBtn.id = 'complainBtn';
+    complainBtn.className = 'btn';
+    const complainBtnText = document.createTextNode('Пожаловаться');
+    complainBtn.append(complainBtnText);
+
+    // меню при нажатии на кнопку Добавить на доску
+    const addToBoard = document.createElement('div');
+    addToBoard.className = 'addToBoard';
+    // Кнопка Доска 1
+    const addToBoard1 = document.createElement('button');
+    addToBoard1.className = 'addToBoard1';
+    const addToBoard1Text = document.createTextNode('Доска 1');
+    addToBoard1.append(addToBoard1Text);
+    // Кнопка Доска 2
+    const addToBoard2 = document.createElement('button');
+    addToBoard2.className = 'addToBoard2';
+    const addToBoard2Text = document.createTextNode('Доска 2');
+    addToBoard2.append(addToBoard2Text);
+    // Кнопка Доска 3
+    const addToBoard3 = document.createElement('button');
+    addToBoard3.className = 'addToBoard3';
+    const addToBoard3Text = document.createTextNode('Доска 3');
+    addToBoard3.append(addToBoard3Text);
+
+
+    // меню при нажатии кнопки Пожаловаться
+    const complainForm = document.createElement('div');
+    complainForm.className = 'complainForm';
+    const complainTitle = document.createElement('p');
+    complainTitle.className = 'complainTitle';
+    const complainTitleValue = document.createTextNode('Жалоба на пин');
+    complainTitle.append(complainTitleValue);
+
+    //Жалоба 1
+    const complain1 = document.createElement('div');
+    complain1.className = 'complain';
+    const radioComplain1 = document.createElement('input');
+    radioComplain1.className = 'radioComplain1';
+    radioComplain1.type = 'radio';
+    const complain1Value = document.createTextNode('Спам');
+
+    //Жалоба 2
+    const complain2 = document.createElement('div');
+    complain2.className = 'complain';
+    const radioComplain2 = document.createElement('input');
+    radioComplain2.className = 'radioComplain';
+    radioComplain2.type = 'radio';
+    const complain2Value = document.createTextNode('Ложная информация');
+
+    //Жалоба 3
+    const complain3 = document.createElement('div');
+    complain3.className = 'complain';
+    const radioComplain3 = document.createElement('input');
+    radioComplain3.className = 'radioComplain';
+    radioComplain3.type = 'radio';
+    const complain3Value = document.createTextNode('Нарушение конфиденциальности');
+
+    //Жалоба 4
+    const complain4 = document.createElement('div');
+    complain4.className = 'complain';
+    const radioComplain4 = document.createElement('input');
+    radioComplain4.className = 'radioComplain';
+    radioComplain4.type = 'radio';
+    const complain4Value = document.createTextNode('Это моя интеллектуальная собственность');
+
     wrapperMainBoard.append(card1);
     card1.append(partOneOfCard1);
     partOneOfCard1.append(imgCard1Wrap, descriptionCard1);
-    imgCard1Wrap.append(imgCard1);
+    imgCard1Wrap.append(imgCard1, partTwoOfCard1);
     descriptionCard1.append(avatarCard1, textCard1Wrap);
     textCard1Wrap.append(textCard1);
     textCard1.append(textPCard1);
     avatarCard1.append(imgAvatarCard1);
-    console.log(card.id);
+    partTwoOfCard1.append(addBtn, hideBtn, complainBtn, complainForm, addToBoard);
+    addToBoard.append(addToBoard1, addToBoard2, addToBoard3);
+
+
+    complainForm.append(complainTitle, complain1, complain2, complain3, complain4);
+    complain1.append(radioComplain1, complain1Value);
+    complain2.append(radioComplain2, complain2Value);
+    complain3.append(radioComplain3, complain3Value);
+    complain4.append(radioComplain4, complain4Value);
     });
 }
-
-
-
-// часть карточки при наведении
-const partTwoOfCard1 = document.createElement('div');
-partTwoOfCard1.className = 'partTwoOfCard1';
-// Кнопка Добавить на доску
-const addBtn = document.createElement('button');
-addBtn.id = 'addBtn';
-addBtn.className = 'btn';
-const addBtnText = document.createTextNode('Добавить на доску');
-addBtn.append(addBtnText);
-// Кнопка Скрыть со страницы
-const hideBtn = document.createElement('button');
-hideBtn.id = 'hideBtn';
-hideBtn.className = 'btn';
-const hideBtnText = document.createTextNode('Скрыть со страницы');
-hideBtn.append(hideBtnText);
-// Кнопка Пожаловаться
-const complainBtn = document.createElement('button');
-complainBtn.id = 'complainBtn';
-complainBtn.className = 'btn';
-const complainBtnText = document.createTextNode('Пожаловаться');
-complainBtn.append(complainBtnText);
-
-// меню при нажатии на кнопку Добавить на доску
-const addToBoard = document.createElement('div');
-addToBoard.className = 'addToBoard';
-// Кнопка Доска 1
-const addToBoard1 = document.createElement('button');
-addToBoard1.className = 'addToBoard1';
-const addToBoard1Text = document.createTextNode('Доска 1');
-addToBoard1.append(addToBoard1Text);
-// Кнопка Доска 2
-const addToBoard2 = document.createElement('button');
-addToBoard2.className = 'addToBoard2';
-const addToBoard2Text = document.createTextNode('Доска 2');
-addToBoard2.append(addToBoard2Text);
-// Кнопка Доска 3
-const addToBoard3 = document.createElement('button');
-addToBoard3.className = 'addToBoard3';
-const addToBoard3Text = document.createTextNode('Доска 3');
-addToBoard3.append(addToBoard3Text);
-
-
-// меню при нажатии кнопки Пожаловаться
-const complainForm = document.createElement('div');
-complainForm.className = 'complainForm';
-const complainTitle = document.createElement('p');
-complainTitle.className = 'complainTitle';
-const complainTitleValue = document.createTextNode('Жалоба на пин');
-complainTitle.append(complainTitleValue);
-
-//Жалоба 1
-const complain1 = document.createElement('div');
-complain1.className = 'complain';
-const radioComplain1 = document.createElement('input');
-radioComplain1.className = 'radioComplain1';
-radioComplain1.type = 'radio';
-const complain1Value = document.createTextNode('Спам');
-
-//Жалоба 2
-const complain2 = document.createElement('div');
-complain2.className = 'complain';
-const radioComplain2 = document.createElement('input');
-radioComplain2.className = 'radioComplain';
-radioComplain2.type = 'radio';
-const complain2Value = document.createTextNode('Ложная информация');
-
-//Жалоба 3
-const complain3 = document.createElement('div');
-complain3.className = 'complain';
-const radioComplain3 = document.createElement('input');
-radioComplain3.className = 'radioComplain';
-radioComplain3.type = 'radio';
-const complain3Value = document.createTextNode('Нарушение конфиденциальности');
-
-//Жалоба 4
-const complain4 = document.createElement('div');
-complain4.className = 'complain';
-const radioComplain4 = document.createElement('input');
-radioComplain4.className = 'radioComplain';
-radioComplain4.type = 'radio';
-const complain4Value = document.createTextNode('Это моя интеллектуальная собственность');
 
 
 pinterest.append(header, mainBoard);
@@ -205,13 +211,4 @@ opinionSelectBoardThree.append(opinionSelectBoardTextThree);
 
 mainBoard.append(containerMainBoard);
 containerMainBoard.append(wrapperMainBoard);
-partTwoOfCard1.append(addBtn, hideBtn, complainBtn, complainForm, addToBoard);
-addToBoard.append(addToBoard1, addToBoard2, addToBoard3);
-
-
-complainForm.append(complainTitle, complain1, complain2, complain3, complain4);
-complain1.append(radioComplain1, complain1Value);
-complain2.append(radioComplain2, complain2Value);
-complain3.append(radioComplain3, complain3Value);
-complain4.append(radioComplain4, complain4Value);
 
