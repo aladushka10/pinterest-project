@@ -127,6 +127,7 @@ function showAllCards(cards) {
     complainBtn.append(complainBtnText)
     complainBtn.addEventListener("click", () => {
       modalBackground.style.display = "block"
+      complainForm.style.display = "block"
     })
 
     // меню при нажатии на кнопку Добавить на доску
@@ -201,7 +202,7 @@ complaints.forEach((complaint) => {
 
   radioItem.append(radio, label)
   complainForm.append(radioItem)
-  console.log(complainForm)
+  //   console.log(complainForm)
 })
 
 const buttonContainer = document.createElement("div")
