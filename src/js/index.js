@@ -26,7 +26,7 @@ wrapperHeader.className = 'wrapperHeader';
 const logo = document.createElement('div'); 
 logo.className = 'logo';
 const logoImg = document.createElement('img');
-logoImg.src = './img/card1.jpg';
+logoImg.src = 'https://upload.wikimedia.org/wikipedia/commons/3/35/Pinterest_Logo.svg';
 logoImg.className = 'logoImg';
 
 //строка поиска
