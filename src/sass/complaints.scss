@@ -15,19 +15,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 500px;
+  width: 320px;
+  height: 450px;
   background-color: #fff;
   border-radius: 20px;
 }
 .modal-content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding: 20px;
 }
 .modal-title {
-  margin: 0 auto 20px;
+  margin: 0 auto 30px;
 }
 
 .modal-title-text {
@@ -35,19 +35,95 @@
   text-align: center;
   font-size: 16px;
 }
-.complainForm {
-  //   display: block;
-  //   background-color: black;
-}
 .modal-buttons {
   display: flex;
   justify-content: end;
+  align-items: end;
   :first-child {
     margin-right: 20px;
+  }
+  :last-child {
+    width: 80px;
   }
 }
 .modal-button {
   width: 60px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.complainForm {
+  //   display: block;
+  //   background-color: black;
+}
+.complainForm div {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.complainForm input[type="radio"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.complainForm label {
+}
+
+.modal-window-boards {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.modal-content-boards {
+  display: flex;
+  flex-direction: column;
+  //   justify-content: center;
+  padding: 20px;
+}
+
+.boardForm div {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.boardForm input[type="radio"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.modal-window-cancel {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-self: flex-end;
+  border: none;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.boardForm input[type="radio"] {
+  margin-right: 20px;
+  // cursor: pointer;
+  //   display: none;
+}
+
+.modal-add-button-div {
+  display: flex;
+  justify-content: end;
+  align-content: end;
+}
+
+.modal-add-button {
+  width: 80px;
   height: 30px;
   cursor: pointer;
 }

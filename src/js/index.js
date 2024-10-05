@@ -3,6 +3,10 @@ window.addEventListener("storage", () => {})
 let hiddenIds = getFromLocalStorage()
 let cardItems = []
 
+let board1
+let board2
+let board3
+
 function getFromLocalStorage() {
   if (localStorage.getItem("hiddenIds")) {
     return JSON.parse(localStorage.getItem("hiddenIds"))
@@ -40,10 +44,8 @@ function formCardsArray(cards) {
       cardItems.push(card)
     }
   })
-  console.log(cardItems)
   removeElementsByClass("card")
   showAllCards(cardItems)
-  console.log(hiddenIds)
 }
 
 function removeElementsByClass(className) {
@@ -154,6 +156,11 @@ function showAllCards(cards) {
     addBtn.className = "btn"
     const addBtnText = document.createTextNode("Добавить на доску")
     addBtn.append(addBtnText)
+    addBtn.addEventListener("click", () => {
+      modalBackgroundBoards.style.display = "block"
+      document.body.style.overflow = "hidden"
+    })
+
     // Кнопка Скрыть со страницы
     const hideBtn = document.createElement("button")
     hideBtn.id = "hideBtn"
@@ -162,6 +169,7 @@ function showAllCards(cards) {
     hideBtn.append(hideBtnText)
     hideBtn.addEventListener("click", () => {
       card1.style.filter = "blur(8px)"
+      partTwoOfCard1.style.display = "none"
       hiddenIds.push(card.id)
       setInLocalStorage(hiddenIds)
     })
@@ -174,8 +182,9 @@ function showAllCards(cards) {
     complainBtn.append(complainBtnText)
     complainBtn.addEventListener("click", () => {
       lastComplainIdClicked = card.id
-      modalBackground.style.display = "block"
+      modalBackgroundComplaint.style.display = "block"
       complainForm.style.display = "block"
+      document.body.style.overflow = "hidden"
     })
 
     // меню при нажатии на кнопку Добавить на доску
@@ -186,8 +195,8 @@ function showAllCards(cards) {
     addToBoard1.className = "addToBoard1"
     const addToBoard1Text = document.createTextNode("Доска 1")
     addToBoard1.append(addToBoard1Text)
-    // Кнопка Доска 2
 
+    // Кнопка Доска 2
     const addToBoard2 = document.createElement("button")
     addToBoard2.className = "addToBoard2"
     const addToBoard2Text = document.createTextNode("Доска 2")
@@ -206,46 +215,64 @@ function showAllCards(cards) {
 
 //модальное окно пожаловаться
 
-const modalBackground = document.createElement("div")
-modalBackground.className = "modal-background"
-modalBackground.id = "modal-background"
+const modalBackgroundComplaint = document.createElement("div")
+modalBackgroundComplaint.className = "modal-background"
+modalBackgroundComplaint.id = "modal-background"
 
-const modalWindow = document.createElement("div")
-modalWindow.className = "modal-window"
-modalWindow.id = "modal-window"
+const modalWindowComplaint = document.createElement("div")
+modalWindowComplaint.className = "modal-window"
+modalWindowComplaint.id = "modal-window"
 
-const modalContent = document.createElement("div")
-modalContent.className = "modal-content"
-modalContent.id = "modal-content"
+const modalContentComplaint = document.createElement("div")
+modalContentComplaint.className = "modal-content"
+modalContentComplaint.id = "modal-content"
 
-const modalTitle = document.createElement("div")
-modalTitle.className = "modal-title"
-const pTitle = document.createElement("p")
-pTitle.className = "modal-title-text"
-const pTitleText = document.createTextNode("Menu complain")
-pTitle.append(pTitleText)
-modalTitle.append(pTitle)
+const modalTitleComplaint = document.createElement("div")
+modalTitleComplaint.className = "modal-title"
+const pTitleComplaint = document.createElement("p")
+pTitleComplaint.className = "modal-title-text"
+const pTitleTextComplaint = document.createTextNode("Меню жалоб")
+pTitleComplaint.append(pTitleTextComplaint)
+modalTitleComplaint.append(pTitleComplaint)
 
 const complainForm = document.createElement("form")
 complainForm.className = "complainForm"
 complainForm.id = "complainForm"
 
 const complaints = [
-  { id: 1, value: "Service is too slow", label: "Service is too slow" },
-  { id: 2, value: "Product is defective", label: "Product is defective" },
-  { id: 3, value: "Staff was rude", label: "Staff was rude" },
+  { id: "spam", value: "spam", label: "Спам" },
+  {
+    id: "false information",
+    value: "false information",
+    label: "Ложная информация",
+  },
+  { id: "agressive", value: "agressive", label: "Агрессивные действия" },
+  { id: "dangerous", value: "dangerous", label: "Опасные товары" },
+  { id: "critics", value: "critics", label: "Преследование или критика" },
+  {
+    id: "violation of confidentiality",
+    value: "violation of confidentiality",
+    label: "Нарушение конфиденциальности",
+  },
+  {
+    id: "my intellectual property",
+    value: "my intellectual property",
+    label: "Это моя интеллектуальная собственность",
+  },
 ]
 
-complaints.forEach((complaint) => {
-  //   console.log(complaint)
+complaints.forEach((complaint, index) => {
   const radioItem = document.createElement("div")
-  const label = document.createElement("label")
   const radio = document.createElement("input")
   radio.id = complaint.id
   radio.type = "radio"
   radio.name = "complaint"
   radio.value = complaint.value
-  label.setAttribute("for", complaint.id)
+  if (index === 0) {
+    radio.checked = true
+  }
+  const label = document.createElement("label")
+  label.setAttribute("for", radio.id)
   label.textContent = complaint.label
 
   radioItem.append(radio, label)
@@ -257,34 +284,113 @@ const buttonContainer = document.createElement("div")
 buttonContainer.className = "modal-buttons"
 
 const modalCancelButton = document.createElement("button")
-const cancelBtnText = document.createTextNode("Cancel")
+const cancelBtnText = document.createTextNode("Отмена")
 modalCancelButton.className = "modal-button"
 modalCancelButton.id = "modalCancelBtn"
 modalCancelButton.append(cancelBtnText)
 modalCancelButton.addEventListener("click", () => {
-  modalBackground.style.display = "none"
+  modalBackgroundComplaint.style.display = "none"
+  document.body.style.overflow = "auto"
 })
 
 const modalSendButton = document.createElement("button")
-const sendBtnText = document.createTextNode("Send")
+const sendBtnText = document.createTextNode("Отправить")
 modalSendButton.className = "modal-button"
 modalSendButton.id = "modalSendBtn"
 modalSendButton.append(sendBtnText)
 modalSendButton.type = "submit"
 modalSendButton.addEventListener("click", () => {
-  //   alert("Ваша жалоба успешно отправлена")
   hiddenIds.push(lastComplainIdClicked)
   setInLocalStorage(hiddenIds)
-  modalBackground.style.display = "none"
+  modalBackgroundComplaint.style.display = "none"
   formCardsArray(cardItems)
 })
 
 buttonContainer.append(modalCancelButton, modalSendButton)
-// complainForm.append(buttonContainer)
-modalContent.append(modalTitle, complainForm, buttonContainer)
-modalWindow.append(modalContent)
-modalBackground.append(modalWindow)
-document.body.append(modalBackground)
+modalContentComplaint.append(modalTitleComplaint, complainForm, buttonContainer)
+modalWindowComplaint.append(modalContentComplaint)
+modalBackgroundComplaint.append(modalWindowComplaint)
+document.body.append(modalBackgroundComplaint)
+
+//модальное окно добавить на доску
+
+const modalBackgroundBoards = document.createElement("div")
+modalBackgroundBoards.className = "modal-background"
+modalBackgroundBoards.id = "modal-background"
+
+const modalWindowBoards = document.createElement("div")
+modalWindowBoards.className = "modal-window-boards"
+modalWindowBoards.id = "modal-window-boards"
+
+const modalContentBoards = document.createElement("div")
+modalContentBoards.className = "modal-content-boards"
+modalContentBoards.id = "modal-content-boards"
+
+const boardsCancelBtn = document.createElement("button")
+const boardsCancelBtnText = document.createTextNode("X")
+boardsCancelBtn.append(boardsCancelBtnText)
+boardsCancelBtn.className = "modal-window-cancel"
+boardsCancelBtn.id = "modal-window-cancel"
+boardsCancelBtn.addEventListener("click", () => {
+  modalBackgroundBoards.style.display = "none"
+  document.body.style.overflow = "auto"
+})
+
+const modalTitleBoards = document.createElement("div")
+modalTitleBoards.className = "modal-title"
+const pTitleBoards = document.createElement("p")
+pTitleBoards.className = "modal-title-text"
+const pTitleTextBoards = document.createTextNode(
+  "Выберите доску на которую хотите добавить"
+)
+pTitleBoards.append(pTitleTextBoards)
+modalTitleBoards.append(pTitleBoards)
+
+const boardForm = document.createElement("form")
+boardForm.className = "boardForm"
+boardForm.id = "boardForm"
+
+const boards = [
+  { id: "board1", value: "board1", label: "Доска 1" },
+  { id: "board2", value: "board2", label: "Доска 2" },
+  { id: "board3", value: "board3", label: "Доска 3" },
+]
+
+boards.forEach((board) => {
+  const radioItem = document.createElement("div")
+  const label = document.createElement("label")
+  const radio = document.createElement("input")
+  radio.id = board.id
+  radio.type = "radio"
+  radio.name = "complaint"
+  radio.value = board.value
+  label.setAttribute("for", board.id)
+  label.textContent = board.label
+
+  radioItem.append(radio, label)
+  boardForm.append(radioItem)
+})
+
+const modalAddBtnDiv = document.createElement("div")
+modalAddBtnDiv.className = "modal-add-button-div"
+const modalAddBtn = document.createElement("button")
+const modalAddBtnText = document.createTextNode("Добавить")
+modalAddBtn.className = "modal-add-button"
+modalAddBtn.id = "modal-add-button"
+modalAddBtn.append(modalAddBtnText)
+modalAddBtnDiv.append(modalAddBtn)
+modalAddBtn.type = "submit"
+modalAddBtn.addEventListener("click", () => {})
+
+modalContentBoards.append(
+  boardsCancelBtn,
+  modalTitleBoards,
+  boardForm,
+  modalAddBtnDiv
+)
+modalWindowBoards.append(modalContentBoards)
+modalBackgroundBoards.append(modalWindowBoards)
+document.body.append(modalBackgroundBoards)
 
 pinterest.append(header, mainBoard)
 header.append(containerHeader)
