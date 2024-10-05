@@ -52,7 +52,7 @@
 //   z-index: 1;
 // }
 .wrapperMainBoard {
-  column-width: 250px;
+  column-width: 200px;
   column-gap: 25px;
 }
 .card {
@@ -71,7 +71,7 @@
   justify-content: space-around;
   margin: auto;
   padding: 0 5px;
-  width: 250px;
+  width: 200px;
 }
 .avatarCard1 {
   width: 50px;
@@ -79,6 +79,7 @@
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20px;
+  align: left;
 }
 .imgAvatarCard1 {
   object-fit: cover;
@@ -117,7 +118,7 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   left: 0%;
   top: 0%;
@@ -125,6 +126,7 @@
   height: 100%;
   opacity: 0;
 }
+
 .partTwoOfCard1:hover {
   opacity: 1;
   background-color: rgba(255, 255, 255, 0.4);
@@ -144,8 +146,12 @@
   height: 40px;
   border-radius: 7px;
   font-size: 14px;
+  margin-bottom: 30px;
 }
 .btn:hover {
   background-color: red;
   color: #fff;
+}
+#complainBtn {
+  margin-bottom: 0px;
 }

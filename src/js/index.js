@@ -68,11 +68,11 @@ const wrapperHeader = document.createElement("div")
 wrapperHeader.className = "wrapperHeader"
 
 //лого
-const logo = document.createElement("div")
-logo.className = "logo"
-const logoImg = document.createElement("img")
-logoImg.src = "./img/card1.jpg"
-logoImg.className = "logoImg"
+const logo = document.createElement('div'); 
+logo.className = 'logo';
+const logoImg = document.createElement('img');
+logoImg.src = 'https://upload.wikimedia.org/wikipedia/commons/3/35/Pinterest_Logo.svg';
+logoImg.className = 'logoImg';
 
 //строка поиска
 const inputSearch = document.createElement("input")
@@ -391,6 +391,7 @@ modalContentBoards.append(
 modalWindowBoards.append(modalContentBoards)
 modalBackgroundBoards.append(modalWindowBoards)
 document.body.append(modalBackgroundBoards)
+
 
 pinterest.append(header, mainBoard)
 header.append(containerHeader)
