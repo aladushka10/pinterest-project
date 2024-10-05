@@ -1,150 +1,146 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
 }
 .header {
-    padding: 50px 0;
+  padding: 50px 0;
 }
 .container {
-    max-width: 1200px;
-    padding: 0 15px;
-    margin: auto;
-  }
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: auto;
+}
 .wrapperHeader {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .logo {
-    width: 20%;
-    height: auto;
-    overflow: hidden;
-    border-radius: 10%;
-    margin-bottom: 10px;
-
+  width: 20%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 10%;
+  margin-bottom: 10px;
 }
 .logoImg {
-    width: 100%;
-    height: auto;
-    /* border-bottom: 1px solid #ccc; */
-    object-fit: cover;
-    
+  width: 100%;
+  height: auto;
+  /* border-bottom: 1px solid #ccc; */
+  object-fit: cover;
 }
 #inputSearch {
-    width: 50%;
-    height: 50px;
-
+  width: 50%;
+  height: 50px;
 }
 .formSelectBoard {
-    width: 20%;
+  width: 20%;
 }
 
 .wrapperMainBoard {
-    column-width: 200px;
-    column-gap: 25px;
+  column-width: 200px;
+  column-gap: 25px;
 }
 .card {
-    -webkit-column-break-inside: avoid;
-    margin-bottom: 10px;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: 10px;
 }
 .partOneOfCard1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 .descriptionCard1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin: auto;
-    padding: 0 5px;
-    width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: auto;
+  padding: 0 5px;
+  width: 200px;
 }
 .avatarCard1 {
-width: 50px;
-height: 50px;
-border-radius: 50%;
-overflow: hidden;
-margin-right: 20px;
-align: left;
-
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20px;
+  align: left;
 }
 .imgAvatarCard1 {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 .textCardWrap {
-    width: 70%;
+  width: 70%;
 }
-.textCard1{
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 8px;
+.textCard1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
 }
 .imgCardWrap {
-    overflow: hidden;
-    border-radius: 10%;
-    margin-bottom: 10px;
-    position: relative;
+  overflow: hidden;
+  border-radius: 10%;
+  margin-bottom: 10px;
+  position: relative;
 }
 .imgCard {
-    width: 100%;
-    height: auto;
-    /* border-bottom: 1px solid #ccc; */
-    object-fit: cover;
-    
+  width: 100%;
+  height: auto;
+  /* border-bottom: 1px solid #ccc; */
+  object-fit: cover;
 }
 .textCard {
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;
-    text-align: left;
-    vertical-align: top;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  text-align: left;
+  vertical-align: top;
 }
 .partTwoOfCard1 {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    left: 0%;
-    top: 0%;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
+
 .partTwoOfCard1:hover {
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .addToBoard {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .complainForm {
-    margin-bottom: 50px;
-    display: none;
+  margin-bottom: 50px;
+  display: none;
 }
 .btn {
-    width: 170px;
-    height: 40px;
-    border-radius: 7px;
-    font-size: 14px;
-    margin-bottom: 10px;
+  width: 170px;
+  height: 40px;
+  border-radius: 7px;
+  font-size: 14px;
+  margin-bottom: 30px;
 }
 .btn:hover {
-    background-color: red;
-    color: #fff;
+  background-color: red;
+  color: #fff;
 }
 #complainBtn {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
