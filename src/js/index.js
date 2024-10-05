@@ -1,6 +1,7 @@
 const pinterest = document.getElementById("pinterest");
 
 let allBoardsData;
+let currentBoard = allBoardsData;
 let board1;
 let board2;
 let board3;
@@ -13,10 +14,10 @@ fetch("https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards")
   })
   .then((json) => {
     allBoardsData = json;
-    board1 = json.slice(0, 6);
-    board2 = json.slice(7, 13);
-    board3 = json.slice(14, 19);
-    showAllCards(board1);
+    board1 = json.slice(0, 10);
+    board2 = json.slice(10, 20);
+    board3 = json.slice(20, 30);
+    showAllCards(json);
   })
   .catch((err) => console.error(`Fetch problem: ${err.message}`));
 
@@ -47,10 +48,6 @@ inputSearch.setAttribute("id", "search");
 inputSearch.setAttribute("type", "text");
 inputSearch.setAttribute("placeholder", "Поиск");
 
-const results = document.createElement("div");
-results.setAttribute("id", "results");
-inputSearch.append(results);
-
 function removeElementsByClass(className) {
   const elements = document.getElementsByClassName(className);
   while (elements.length > 0) {
@@ -66,11 +63,12 @@ function normalizeString(str) {
 
 function searchCards() {
   const searchValue = normalizeString(inputSearch.value);
-  const filteredCards = allBoardsData.filter((card) =>
+  const filteredCards = currentBoard.filter((card) =>
     normalizeString(card.description).includes(searchValue)
   );
   showAllCards(filteredCards);
-}
+};
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   removeElementsByClass("card");
@@ -80,29 +78,39 @@ form.addEventListener("submit", (e) => {
 //меню Выбрать доску
 const formSelectBoard = document.createElement("form");
 formSelectBoard.className = "formSelectBoard";
+
 const selectBoard = document.createElement("select");
 selectBoard.setAttribute("class", "selectBoard");
-const opinionSelectBoard = document.createElement("option");
-opinionSelectBoard.value = "";
-const opinionSelectBoardText = document.createTextNode("Выбрать доску");
-const opinionSelectBoardOne = document.createElement("option");
-opinionSelectBoardOne.value = "boardOne";
-const opinionSelectBoardTextOne = document.createTextNode("Доска 1");
-const opinionSelectBoardTwo = document.createElement("option");
-opinionSelectBoardTwo.value = "boardTwo";
-const opinionSelectBoardTextTwo = document.createTextNode("Доска 2");
-const opinionSelectBoardThree = document.createElement("option");
-opinionSelectBoardThree.value = "boardThree";
-const opinionSelectBoardTextThree = document.createTextNode("Доска 3");
+
+const optionSelectBoard = document.createElement("option");
+optionSelectBoard.value = "";
+const optionSelectBoardText = document.createTextNode("Выбрать доску");
+
+const optionSelectBoardOne = document.createElement("option");
+optionSelectBoardOne.value = "boardOne";
+const optionSelectBoardTextOne = document.createTextNode("Доска 1");
+
+const optionSelectBoardTwo = document.createElement("option");
+optionSelectBoardTwo.value = "boardTwo";
+const optionSelectBoardTextTwo = document.createTextNode("Доска 2");
+
+const optionSelectBoardThree = document.createElement("option");
+optionSelectBoardThree.value = "boardThree";
+const optionSelectBoardTextThree = document.createTextNode("Доска 3");
 
 selectBoard.addEventListener("change", (event) => {
   removeElementsByClass("card");
   if (event.target.value === "boardOne") {
+    currentBoard = board1;
     showAllCards(board1);
   } else if (event.target.value === "boardTwo") {
+    currentBoard = board2;
     showAllCards(board2);
   } else if (event.target.value === "boardThree") {
+    currentBoard = board3;
     showAllCards(board3);
+  } else {currentBoard = allBoardsData;
+  showAllCards(allBoardsData);
   }
 });
 
@@ -153,7 +161,7 @@ function showAllCards(cards) {
     textCard1Wrap.append(textCard1);
     textCard1.append(textPCard1);
     // avatarCard1.append(imgAvatarCard1);
-    console.log(card.id);
+    //console.log(card.id);
   });
 }
 
@@ -248,13 +256,13 @@ form.append(inputSearch);
 logo.append(logoImg);
 formSelectBoard.append(selectBoard);
 selectBoard.append(
-  opinionSelectBoardOne,
-  opinionSelectBoardTwo,
-  opinionSelectBoardThree
+  optionSelectBoardOne,
+  optionSelectBoardTwo,
+  optionSelectBoardThree
 );
-opinionSelectBoardOne.append(opinionSelectBoardTextOne);
-opinionSelectBoardTwo.append(opinionSelectBoardTextTwo);
-opinionSelectBoardThree.append(opinionSelectBoardTextThree);
+optionSelectBoardOne.append(optionSelectBoardTextOne);
+optionSelectBoardTwo.append(optionSelectBoardTextTwo);
+optionSelectBoardThree.append(optionSelectBoardTextThree);
 
 mainBoard.append(containerMainBoard);
 containerMainBoard.append(wrapperMainBoard);
