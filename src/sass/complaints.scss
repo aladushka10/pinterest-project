@@ -28,12 +28,13 @@
 }
 .modal-title {
   margin: 0 auto 30px;
+  font-family: Georgia;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .modal-title-text {
-  font-size: 24px;
   text-align: center;
-  font-size: 16px;
 }
 .modal-buttons {
   display: flex;
@@ -47,9 +48,23 @@
   }
 }
 .modal-button {
-  width: 60px;
-  height: 30px;
+  font-family: Georgia;
+  width: 70px;
+  height: 40px;
   cursor: pointer;
+  border: 1px solid;
+  border-radius: 10px;
+  //   &:last-child {
+  //     background-color: rgb(209, 14, 14);
+  //     color: #fff;
+  //   }
+  &:hover {
+    background-color: rgb(209, 14, 14);
+    color: #fff;
+    &:active {
+      background-color: rgb(153, 19, 19);
+    }
+  }
 }
 
 .complainForm {
@@ -57,7 +72,7 @@
   //   background-color: black;
 }
 .complainForm div {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
 }
@@ -68,6 +83,8 @@
 }
 
 .complainForm label {
+  font-family: "Courier New";
+  font-size: 16px;
 }
 
 .modal-window-boards {
@@ -95,11 +112,6 @@
   align-items: center;
 }
 
-.boardForm input[type="radio"] {
-  margin-right: 10px;
-  cursor: pointer;
-}
-
 .modal-window-cancel {
   display: flex;
   width: 20px;
@@ -112,10 +124,13 @@
 
 .boardForm input[type="radio"] {
   margin-right: 20px;
+
   // cursor: pointer;
   //   display: none;
 }
-
+.boardForm label {
+  font-family: "Courier New";
+}
 .modal-add-button-div {
   display: flex;
   justify-content: end;
@@ -123,7 +138,18 @@
 }
 
 .modal-add-button {
-  width: 80px;
-  height: 30px;
+  width: 90px;
+  height: 40px;
   cursor: pointer;
+  font-family: Georgia;
+  font-size: 14px;
+  border: 1px solid;
+  border-radius: 10px;
+  &:hover {
+    background-color: rgb(202, 7, 7);
+    color: #fff;
+    &:active {
+      background-color: rgb(153, 19, 19);
+    }
+  }
 }
