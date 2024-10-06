@@ -114,6 +114,8 @@ inputSearch.setAttribute("id", "search")
 inputSearch.setAttribute("type", "text")
 inputSearch.setAttribute("placeholder", "Поиск")
 
+inputSearch.addEventListener("input", searchCards)
+
 function removeElementsByClass(className) {
   const elements = document.getElementsByClassName(className)
   while (elements.length > 0) {
@@ -127,18 +129,34 @@ function normalizeString(str) {
     .toLowerCase()
 }
 
+function clearSearchInput() {
+  inputSearch.value = ""
+}
+
 function searchCards() {
   const searchValue = normalizeString(inputSearch.value)
   const filteredCards = currentBoard.filter((card) =>
     normalizeString(card.description).includes(searchValue)
   )
+  removeElementsByClass("card")
   showAllCards(filteredCards)
 }
-form.addEventListener("submit", (e) => {
-  e.preventDefault()
-  removeElementsByClass("card")
-  searchCards()
+
+inputSearch.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    if (inputSearch.value == "") {
+      searchCards()
+    }
+    e.preventDefault()
+    clearSearchInput()
+  }
 })
+
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault()
+//   removeElementsByClass("card")
+//   searchCards()
+// })
 
 //меню Выбрать доску
 const formSelectBoard = document.createElement("form")
