@@ -1,10 +1,10 @@
 const pinterest = document.getElementById("pinterest");
 
-let allBoardsData;
-let currentBoard = allBoardsData;
-let board1;
-let board2;
-let board3;
+let allBoardsData = []
+let currentBoard = []
+let board1 = []
+let board2 = []
+let board3 = []
 fetch("https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards")
   .then((response) => {
     if (!response.ok) {
@@ -17,6 +17,7 @@ fetch("https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards")
     board1 = json.slice(0, 10);
     board2 = json.slice(10, 20);
     board3 = json.slice(20, 30);
+    currentBoard = allBoardsData;
     showAllCards(json);
   })
   .catch((err) => console.error(`Fetch problem: ${err.message}`));
