@@ -1,7 +1,7 @@
 .header {
     padding: 50px 0;
 }
-.wrapperHeader {
+.header-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -22,7 +22,7 @@
       margin-bottom: 20px;
     }
 }
-.logoImg {
+.logo-img {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -56,7 +56,7 @@
       margin-left: 12px;
     }
 }
-.formSelectBoard {
+.form-select-board {
     width: 15%;
     align-items: center;
     @media (max-width: 320px) {
@@ -64,7 +64,7 @@
       margin: auto;
     }
 }
-.selectBoard {
+.select-board {
     width: 90%;
     height: 40px;
     border-radius: 5px;
