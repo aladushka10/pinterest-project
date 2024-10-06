@@ -1,18 +1,25 @@
 window.addEventListener("storage", () => {})
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await loadAndDisplayCards()
-  createHeaderAndMain()
-})
-
 let hiddenIds = getFromLocalStorage()
 let cardItems = []
 
-let allBoardsData = []
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadAndDisplayCards()
+  createHeaderAndMain()
+  updateBoard()
+})
+
+let selectedBoard = getSelectedBoardFromLocalStorage()
 let currentBoard = []
-let board1 = []
-let board2 = []
-let board3 = []
+let board1 = getBoard1FromLocalStorage()
+let board2 = getBoard2FromLocalStorage()
+let board3 = getBoard3FromLocalStorage()
+
+function updateBoard() {
+  const $select = document.querySelector("select")
+  $select.value = selectedBoard
+  selectBoard.dispatchEvent(new Event("change"))
+}
 
 function getFromLocalStorage() {
   if (localStorage.getItem("hiddenIds")) {
@@ -20,9 +27,47 @@ function getFromLocalStorage() {
   }
   return []
 }
-
+function getBoard1FromLocalStorage() {
+  if (localStorage.getItem("board1")) {
+    return JSON.parse(localStorage.getItem("board1"))
+  }
+  return []
+}
+function getBoard2FromLocalStorage() {
+  if (localStorage.getItem("board2")) {
+    return JSON.parse(localStorage.getItem("board2"))
+  }
+  return []
+}
+function getBoard3FromLocalStorage() {
+  if (localStorage.getItem("board3")) {
+    return JSON.parse(localStorage.getItem("board3"))
+  }
+  return []
+}
+function getSelectedBoardFromLocalStorage() {
+  if (localStorage.getItem("selectedBoard")) {
+    return JSON.parse(localStorage.getItem("selectedBoard"))
+  }
+  return "allBoards"
+}
 function setInLocalStorage(hiddenIds) {
   localStorage.setItem("hiddenIds", JSON.stringify(hiddenIds))
+}
+
+function setBoard1InLocalStorage(board1) {
+  localStorage.setItem("board1", JSON.stringify(board1))
+}
+
+function setBoard2InLocalStorage(board2) {
+  localStorage.setItem("board2", JSON.stringify(board2))
+}
+function setBoard3InLocalStorage(board3) {
+  localStorage.setItem("board3", JSON.stringify(board3))
+}
+
+function setSelectedBoardInLocalStorage(selectedBoard) {
+  localStorage.setItem("selectedBoard", JSON.stringify(selectedBoard))
 }
 
 async function loadAndDisplayCards() {
@@ -36,13 +81,23 @@ async function loadAndDisplayCards() {
 
     const json = await response.json()
 
-    allBoardsData = json
-    board1 = json.slice(5, 15)
-    board2 = json.slice(25, 38)
-    board3 = json.slice(42, 53)
-
-    currentBoard = allBoardsData
     cardItems = json.filter((card) => !hiddenIds.includes(card.id))
+
+    let partition = cardItems.length / 5
+    if (board1.length == 0) {
+      board1 = json.slice(partition, 2 * partition)
+      setBoard1InLocalStorage(board1)
+    }
+    if (board2.length == 0) {
+      board2 = json.slice(2 * partition, 3 * partition)
+      setBoard2InLocalStorage(board2)
+    }
+    if (board3.length == 0) {
+      board3 = json.slice(3 * partition, 4 * partition)
+      setBoard3InLocalStorage(board3)
+    }
+
+    currentBoard = cardItems
 
     removeElementsByClass("card")
     showAllCards(cardItems)
@@ -72,18 +127,6 @@ function createHeaderAndMain() {
 
   mainBoard.append(containerMainBoard)
   containerMainBoard.append(wrapperMainBoard)
-}
-
-function formCardsArray(cards) {
-  cardItems = []
-
-  cards.forEach((card) => {
-    if (!hiddenIds.includes(card.id)) {
-      cardItems.push(card)
-    }
-  })
-  removeElementsByClass("card")
-  showAllCards(cardItems)
 }
 
 //header
@@ -152,12 +195,6 @@ inputSearch.addEventListener("keypress", (e) => {
   }
 })
 
-// form.addEventListener("submit", (e) => {
-//   e.preventDefault()
-//   removeElementsByClass("card")
-//   searchCards()
-// })
-
 //меню Выбрать доску
 const formSelectBoard = document.createElement("form")
 formSelectBoard.className = "form-select-board"
@@ -185,16 +222,24 @@ selectBoard.addEventListener("change", (event) => {
   removeElementsByClass("card")
   if (event.target.value === "boardOne") {
     currentBoard = board1
+    selectedBoard = "boardOne"
+    setSelectedBoardInLocalStorage(selectedBoard)
     showAllCards(board1)
   } else if (event.target.value === "boardTwo") {
     currentBoard = board2
+    selectedBoard = "boardTwo"
+    setSelectedBoardInLocalStorage(selectedBoard)
     showAllCards(board2)
   } else if (event.target.value === "boardThree") {
     currentBoard = board3
+    selectedBoard = "boardThree"
+    setSelectedBoardInLocalStorage(selectedBoard)
     showAllCards(board3)
   } else if (event.target.value === "allBoards") {
-    currentBoard = allBoardsData
-    showAllCards(allBoardsData)
+    currentBoard = cardItems
+    selectedBoard = "allBoards"
+    setSelectedBoardInLocalStorage(selectedBoard)
+    showAllCards(cardItems)
   }
 })
 
@@ -211,6 +256,7 @@ const wrapperMainBoard = document.createElement("div")
 wrapperMainBoard.className = "main-board-wrapper"
 
 let lastComplainIdClicked = -1
+let lastAddCardClicked = null
 
 function showAllCards(cards) {
   cards.forEach((card) => {
@@ -258,8 +304,17 @@ function showAllCards(cards) {
     const addBtnText = document.createTextNode("Добавить на доску")
     addBtn.append(addBtnText)
     addBtn.addEventListener("click", () => {
-      modalBackgroundBoards.style.display = "block"
-      document.body.style.overflow = "hidden"
+      if (
+        board1.includes(card) &&
+        board2.includes(card) &&
+        board3.includes(card)
+      ) {
+        alert("Эта карточка уже есть на всех досках")
+      } else {
+        modalBackgroundBoards.style.display = "block"
+        document.body.style.overflow = "hidden"
+        lastAddCardClicked = card
+      }
     })
 
     // Кнопка Скрыть со страницы
@@ -273,6 +328,12 @@ function showAllCards(cards) {
       partTwoOfCard1.style.display = "none"
       hiddenIds.push(card.id)
       setInLocalStorage(hiddenIds)
+      board1 = board1.filter((card) => !hiddenIds.includes(card.id))
+      setBoard1InLocalStorage(board1)
+      board2 = board2.filter((card) => !hiddenIds.includes(card.id))
+      setBoard2InLocalStorage(board2)
+      board3 = board3.filter((card) => !hiddenIds.includes(card.id))
+      setBoard3InLocalStorage(board3)
     })
 
     // Кнопка Пожаловаться
@@ -356,7 +417,6 @@ complaints.forEach((complaint, index) => {
 
   radioItem.append(radio, label)
   complainForm.append(radioItem)
-  //   console.log(complainForm)
 })
 
 const buttonContainer = document.createElement("div")
@@ -383,7 +443,14 @@ modalSendButton.addEventListener("click", () => {
   setInLocalStorage(hiddenIds)
   modalBackgroundComplaint.style.display = "none"
   document.body.style.overflow = "auto"
-  formCardsArray(cardItems)
+  board1 = board1.filter((card) => !hiddenIds.includes(card.id))
+  setBoard1InLocalStorage(board1)
+  board2 = board2.filter((card) => !hiddenIds.includes(card.id))
+  setBoard2InLocalStorage(board2)
+  board3 = board3.filter((card) => !hiddenIds.includes(card.id))
+  setBoard3InLocalStorage(board3)
+  cardItems = cardItems.filter((card) => !hiddenIds.includes(card.id))
+  selectBoard.dispatchEvent(new Event("change"))
 })
 
 buttonContainer.append(modalCancelButton, modalSendButton)
@@ -436,7 +503,7 @@ const boards = [
   { id: "board3", value: "board3", label: "Доска 3" },
 ]
 
-boards.forEach((board) => {
+boards.forEach((board, index) => {
   const radioItem = document.createElement("div")
   const label = document.createElement("label")
   const radio = document.createElement("input")
@@ -446,6 +513,10 @@ boards.forEach((board) => {
   radio.value = board.value
   label.setAttribute("for", board.id)
   label.textContent = board.label
+
+  if (index === 0) {
+    radio.checked = true
+  }
 
   radioItem.append(radio, label)
   boardForm.append(radioItem)
@@ -460,7 +531,46 @@ modalAddBtn.id = "modal-add-button"
 modalAddBtn.append(modalAddBtnText)
 modalAddBtnDiv.append(modalAddBtn)
 modalAddBtn.type = "submit"
-modalAddBtn.addEventListener("click", () => {})
+modalAddBtn.addEventListener("click", () => {
+  const boardFormElements = boardForm.elements
+
+  for (let element of boardFormElements) {
+    if (element.checked) {
+      const selectedBoardId = element.value
+      addCardToBoard(selectedBoardId)
+      break
+    }
+  }
+  modalBackgroundBoards.style.display = "none"
+  document.body.style.overflow = "auto"
+})
+
+function addCardToBoard(boardId) {
+  if (boardId == "board1") {
+    if (!board1.find((card) => card.id == lastAddCardClicked.id)) {
+      board1.push(lastAddCardClicked)
+      setBoard1InLocalStorage(board1)
+    } else {
+      alert("Эта карточка уже есть на этой доске")
+    }
+  }
+  if (boardId == "board2") {
+    if (!board2.find((card) => card.id == lastAddCardClicked.id)) {
+      board2.push(lastAddCardClicked)
+      setBoard2InLocalStorage(board2)
+    } else {
+      alert("Эта карточка уже есть на этой доске")
+    }
+  }
+  if (boardId == "board3") {
+    if (!board3.find((card) => card.id == lastAddCardClicked.id)) {
+      board3.push(lastAddCardClicked)
+      setBoard3InLocalStorage(board3)
+    } else {
+      alert("Эта карточка уже есть на этой доске")
+    }
+  }
+}
 
 modalContentBoards.append(
   boardsCancelBtn,
