@@ -7,54 +7,26 @@
 }
 
 @import url(./modals.scss);
+@import url(./header.scss);
+@import url(./mainboard.scss);
 
-// .body {
-//   position: relative;
-//   z-index: 10;
-// }
-
-.header {
-  padding: 50px 0;
-}
 .container {
   max-width: 1170px;
   padding: 0 15px;
   margin: auto;
 }
-.wrapperHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.logo {
-  width: 20%;
-  height: auto;
-  overflow: hidden;
-  border-radius: 10%;
-  margin-bottom: 10px;
-}
-.logoImg {
-  width: 100%;
-  height: auto;
-  /* border-bottom: 1px solid #ccc; */
-  object-fit: cover;
-}
-#inputSearch {
-  width: 50%;
-  height: 50px;
-}
-.formSelectBoard {
-  width: 20%;
-}
 
-// .mainBoard {
-//   position: relative;
-//   z-index: 1;
-// }
 .wrapperMainBoard {
   column-width: 200px;
-  column-gap: 25px;
+  column-gap: 20px;
+  @media (max-width: 1024px) {
+    column-width: 180px;
+    column-gap: 15px;
+  }
+  @media (max-width: 320px) {
+    column-width: 120px;
+    column-gap: 10px;
+  }
 }
 .card {
   -webkit-column-break-inside: avoid;
@@ -64,7 +36,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+  @media (max-width: 1024px) {
+    margin-bottom: 15px;
+  }
+  @media (max-width: 320px) {
+    margin-bottom: 15px;
+  }
 }
 .descriptionCard1 {
   display: flex;
@@ -73,6 +51,12 @@
   margin: auto;
   padding: 0 5px;
   width: 200px;
+  @media (max-width: 1024px) {
+    width: 180px;
+  }
+  @media (max-width: 320px) {
+    width: 120px;
+ }
 }
 .avatarCard1 {
   width: 50px;
@@ -80,7 +64,16 @@
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20px;
-  //   align: left;
+  @media (max-width: 1024px) {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+  }
+  @media (max-width: 320px) {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+ }  
 }
 .imgAvatarCard1 {
   object-fit: cover;
@@ -89,12 +82,6 @@
 }
 .textCardWrap {
   width: 70%;
-}
-.textCard1 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 8px;
 }
 .imgCardWrap {
   overflow: hidden;
@@ -114,6 +101,9 @@
   color: #333;
   text-align: left;
   vertical-align: top;
+  @media (max-width: 320px) {
+    font-size: 12px;
+  }
 }
 .partTwoOfCard1 {
   position: absolute;
@@ -139,7 +129,6 @@
   justify-content: space-between;
 }
 .complainForm {
-  margin-bottom: 50px;
   display: none;
 }
 .btn {
@@ -147,7 +136,18 @@
   height: 40px;
   border-radius: 7px;
   font-size: 14px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  @media (max-width: 1024px) {
+    width: 150px;
+    height: 36px;
+    margin-bottom: 9px;
+  }
+  @media (max-width: 320px) {
+    width: 100px;
+    height: 24px;
+    font-size: 12px;
+    margin-bottom: 6px;;
+  }
 }
 .btn:hover {
   background-color: rgb(202, 7, 7);
