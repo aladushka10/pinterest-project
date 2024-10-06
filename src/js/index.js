@@ -287,30 +287,8 @@ function showAllCards(cards) {
       complainForm.style.display = "block"
       document.body.style.overflow = "hidden"
     })
-
-    // меню при нажатии на кнопку Добавить на доску
-    const addToBoard = document.createElement("div")
-    addToBoard.className = "addToBoard"
-    // Кнопка Доска 1
-    const addToBoard1 = document.createElement("button")
-    addToBoard1.className = "addToBoard1"
-    const addToBoard1Text = document.createTextNode("Доска 1")
-    addToBoard1.append(addToBoard1Text)
-
-    // Кнопка Доска 2
-    const addToBoard2 = document.createElement("button")
-    addToBoard2.className = "addToBoard2"
-    const addToBoard2Text = document.createTextNode("Доска 2")
-    addToBoard2.append(addToBoard2Text)
-    // Кнопка Доска 3
-    const addToBoard3 = document.createElement("button")
-    addToBoard3.className = "addToBoard3"
-    const addToBoard3Text = document.createTextNode("Доска 3")
-    addToBoard3.append(addToBoard3Text)
-
     imgCard1Wrap.append(imgCard1, partTwoOfCard1)
-    partTwoOfCard1.append(addBtn, hideBtn, complainBtn, addToBoard)
-    addToBoard.append(addToBoard1, addToBoard2, addToBoard3)
+    partTwoOfCard1.append(addBtn, hideBtn, complainBtn)
   })
 }
 
