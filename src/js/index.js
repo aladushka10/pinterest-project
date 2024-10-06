@@ -96,7 +96,7 @@ containerHeader.className = "container"
 
 //обертка для header
 const wrapperHeader = document.createElement("div")
-wrapperHeader.className = "wrapperHeader"
+wrapperHeader.className = "header-wrapper"
 
 //лого
 const logo = document.createElement("div")
@@ -104,7 +104,7 @@ logo.className = "logo"
 const logoImg = document.createElement("img")
 logoImg.src =
   "https://upload.wikimedia.org/wikipedia/commons/3/35/Pinterest_Logo.svg"
-logoImg.className = "logoImg"
+logoImg.className = "logo-img"
 
 //строка поиска
 const form = document.createElement("form")
@@ -160,10 +160,10 @@ inputSearch.addEventListener("keypress", (e) => {
 
 //меню Выбрать доску
 const formSelectBoard = document.createElement("form")
-formSelectBoard.className = "formSelectBoard"
+formSelectBoard.className = "form-select-board"
 
 const selectBoard = document.createElement("select")
-selectBoard.setAttribute("class", "selectBoard")
+selectBoard.setAttribute("class", "select-board")
 
 const optionSelectBoard = document.createElement("option")
 optionSelectBoard.value = "allBoards"
@@ -200,7 +200,7 @@ selectBoard.addEventListener("change", (event) => {
 
 //основной блок с карточками
 const mainBoard = document.createElement("div")
-mainBoard.className = "mainBoard"
+mainBoard.className = "main-board"
 
 //контейнер для mainBoard
 const containerMainBoard = document.createElement("div")
@@ -208,7 +208,7 @@ containerMainBoard.className = "container"
 
 //обертка для mainboard
 const wrapperMainBoard = document.createElement("div")
-wrapperMainBoard.className = "wrapperMainBoard"
+wrapperMainBoard.className = "main-board-wrapper"
 
 let lastComplainIdClicked = -1
 
@@ -221,23 +221,23 @@ function showAllCards(cards) {
     card1.className = "card"
     //видимая часть карточки
     const partOneOfCard1 = document.createElement("div")
-    partOneOfCard1.className = "partOneOfCard1"
+    partOneOfCard1.className = "card-visible"
     const imgCard1Wrap = document.createElement("div")
-    imgCard1Wrap.className = "imgCardWrap"
+    imgCard1Wrap.className = "card-img-wrapper"
     const imgCard1 = document.createElement("img")
     imgCard1.src = card.img
-    imgCard1.className = "imgCard"
+    imgCard1.className = "card-img"
     const descriptionCard1 = document.createElement("div")
-    descriptionCard1.className = "descriptionCard1"
+    descriptionCard1.className = "card-description-wrapper"
     const avatarCard1 = document.createElement("div")
-    avatarCard1.className = "avatarCard1"
+    avatarCard1.className = "card-avatar-wrapper"
     const imgAvatarCard1 = document.createElement("img")
-    imgAvatarCard1.className = "imgAvatarCard1"
+    imgAvatarCard1.className = "card-avatar"
     imgAvatarCard1.src = card.avatar
     const textCard1Wrap = document.createElement("div")
-    textCard1Wrap.className = "textCardWrap"
+    textCard1Wrap.className = "card-text-wrapper"
     const textCard1 = document.createElement("p")
-    textCard1.className = "textCard"
+    textCard1.className = "card-text"
     const textPCard1 = document.createTextNode(`${card.description}`)
     wrapperMainBoard.append(card1)
     card1.append(partOneOfCard1)
@@ -250,7 +250,7 @@ function showAllCards(cards) {
 
     // часть карточки при наведении
     const partTwoOfCard1 = document.createElement("div")
-    partTwoOfCard1.className = "partTwoOfCard1"
+    partTwoOfCard1.className = "card-hover"
     // Кнопка Добавить на доску
     const addBtn = document.createElement("button")
     addBtn.id = "addBtn"
@@ -287,30 +287,8 @@ function showAllCards(cards) {
       complainForm.style.display = "block"
       document.body.style.overflow = "hidden"
     })
-
-    // меню при нажатии на кнопку Добавить на доску
-    const addToBoard = document.createElement("div")
-    addToBoard.className = "addToBoard"
-    // Кнопка Доска 1
-    const addToBoard1 = document.createElement("button")
-    addToBoard1.className = "addToBoard1"
-    const addToBoard1Text = document.createTextNode("Доска 1")
-    addToBoard1.append(addToBoard1Text)
-
-    // Кнопка Доска 2
-    const addToBoard2 = document.createElement("button")
-    addToBoard2.className = "addToBoard2"
-    const addToBoard2Text = document.createTextNode("Доска 2")
-    addToBoard2.append(addToBoard2Text)
-    // Кнопка Доска 3
-    const addToBoard3 = document.createElement("button")
-    addToBoard3.className = "addToBoard3"
-    const addToBoard3Text = document.createTextNode("Доска 3")
-    addToBoard3.append(addToBoard3Text)
-
     imgCard1Wrap.append(imgCard1, partTwoOfCard1)
-    partTwoOfCard1.append(addBtn, hideBtn, complainBtn, addToBoard)
-    addToBoard.append(addToBoard1, addToBoard2, addToBoard3)
+    partTwoOfCard1.append(addBtn, hideBtn, complainBtn)
   })
 }
 
