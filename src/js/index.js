@@ -1,7 +1,7 @@
 window.addEventListener("storage", () => {})
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadAndDisplayCards()
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadAndDisplayCards()
   createHeaderAndMain()
 })
 
@@ -25,30 +25,30 @@ function setInLocalStorage(hiddenIds) {
   localStorage.setItem("hiddenIds", JSON.stringify(hiddenIds))
 }
 
-function loadAndDisplayCards() {
-  fetch(
-    "https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards"
-  )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`)
-      }
-      return response.json()
-    })
-    .then((json) => {
-      allBoardsData = json
-      board1 = json.slice(0, 10)
-      board2 = json.slice(10, 20)
-      board3 = json.slice(20, 30)
+async function loadAndDisplayCards() {
+  try {
+    const response = await fetch(
+      "https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards"
+    )
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`)
+    }
 
-      currentBoard = allBoardsData
-      cardItems = json.filter((card) => !hiddenIds.includes(card.id))
-      removeElementsByClass("card")
-      showAllCards(cardItems)
-    })
-    .catch((error) => {
-      console.error(`Fetch error: ${error.message}`)
-    })
+    const json = await response.json()
+
+    allBoardsData = json
+    board1 = json.slice(5, 15)
+    board2 = json.slice(25, 38)
+    board3 = json.slice(42, 53)
+
+    currentBoard = allBoardsData
+    cardItems = json.filter((card) => !hiddenIds.includes(card.id))
+
+    removeElementsByClass("card")
+    showAllCards(cardItems)
+  } catch (error) {
+    console.error(`Fetch error: ${error.message}`)
+  }
 }
 
 function createHeaderAndMain() {
