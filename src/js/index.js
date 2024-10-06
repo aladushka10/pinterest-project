@@ -67,7 +67,7 @@ function searchCards() {
     normalizeString(card.description).includes(searchValue)
   );
   showAllCards(filteredCards);
-};
+}
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -83,7 +83,7 @@ const selectBoard = document.createElement("select");
 selectBoard.setAttribute("class", "selectBoard");
 
 const optionSelectBoard = document.createElement("option");
-optionSelectBoard.value = "";
+optionSelectBoard.value = "allBoards";
 const optionSelectBoardText = document.createTextNode("Выбрать доску");
 
 const optionSelectBoardOne = document.createElement("option");
@@ -109,8 +109,9 @@ selectBoard.addEventListener("change", (event) => {
   } else if (event.target.value === "boardThree") {
     currentBoard = board3;
     showAllCards(board3);
-  } else {currentBoard = allBoardsData;
-  showAllCards(allBoardsData);
+  } else if (event.target.value === "allBoards") {
+    currentBoard = allBoardsData;
+    showAllCards(allBoardsData);
   }
 });
 
@@ -256,10 +257,12 @@ form.append(inputSearch);
 logo.append(logoImg);
 formSelectBoard.append(selectBoard);
 selectBoard.append(
+  optionSelectBoard,
   optionSelectBoardOne,
   optionSelectBoardTwo,
   optionSelectBoardThree
 );
+optionSelectBoard.append(optionSelectBoardText);
 optionSelectBoardOne.append(optionSelectBoardTextOne);
 optionSelectBoardTwo.append(optionSelectBoardTextTwo);
 optionSelectBoardThree.append(optionSelectBoardTextThree);
