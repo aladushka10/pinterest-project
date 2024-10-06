@@ -8,9 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
 let hiddenIds = getFromLocalStorage()
 let cardItems = []
 
-let board1
-let board2
-let board3
+let allBoardsData = []
+let currentBoard = []
+let board1 = []
+let board2 = []
+let board3 = []
 
 function getFromLocalStorage() {
   if (localStorage.getItem("hiddenIds")) {
@@ -33,8 +35,14 @@ function loadAndDisplayCards() {
       }
       return response.json()
     })
-    .then((cards) => {
-      cardItems = cards.filter((card) => !hiddenIds.includes(card.id))
+    .then((json) => {
+      allBoardsData = json
+      board1 = json.slice(0, 10)
+      board2 = json.slice(10, 20)
+      board3 = json.slice(20, 30)
+
+      currentBoard = allBoardsData
+      cardItems = json.filter((card) => !hiddenIds.includes(card.id))
       removeElementsByClass("card")
       showAllCards(cardItems)
     })
@@ -42,6 +50,7 @@ function loadAndDisplayCards() {
       console.error(`Fetch error: ${error.message}`)
     })
 }
+
 function createHeaderAndMain() {
   const pinterest = document.getElementById("pinterest")
   pinterest.append(header, mainBoard)
@@ -51,15 +60,15 @@ function createHeaderAndMain() {
   logo.append(logoImg)
   formSelectBoard.append(selectBoard)
   selectBoard.append(
-    opinionSelectBoard,
-    opinionSelectBoardOne,
-    opinionSelectBoardTwo,
-    opinionSelectBoardThree
+    optionSelectBoard,
+    optionSelectBoardOne,
+    optionSelectBoardTwo,
+    optionSelectBoardThree
   )
-  opinionSelectBoard.append(opinionSelectBoardText)
-  opinionSelectBoardOne.append(opinionSelectBoardTextOne)
-  opinionSelectBoardTwo.append(opinionSelectBoardTextTwo)
-  opinionSelectBoardThree.append(opinionSelectBoardTextThree)
+  optionSelectBoard.append(optionSelectBoardText)
+  optionSelectBoardOne.append(optionSelectBoardTextOne)
+  optionSelectBoardTwo.append(optionSelectBoardTextTwo)
+  optionSelectBoardThree.append(optionSelectBoardTextThree)
 
   mainBoard.append(containerMainBoard)
   containerMainBoard.append(wrapperMainBoard)
@@ -75,13 +84,6 @@ function formCardsArray(cards) {
   })
   removeElementsByClass("card")
   showAllCards(cardItems)
-}
-
-function removeElementsByClass(className) {
-  const elements = document.getElementsByClassName(className)
-  while (elements.length > 0) {
-    elements[0].parentNode.removeChild(elements[0])
-  }
 }
 
 //header
@@ -105,27 +107,79 @@ logoImg.src =
 logoImg.className = "logoImg"
 
 //строка поиска
+const form = document.createElement("form")
+form.setAttribute("id", "form1")
 const inputSearch = document.createElement("input")
-inputSearch.value = "Поиск"
-inputSearch.id = "inputSearch"
+inputSearch.setAttribute("id", "search")
+inputSearch.setAttribute("type", "text")
+inputSearch.setAttribute("placeholder", "Поиск")
+
+function removeElementsByClass(className) {
+  const elements = document.getElementsByClassName(className)
+  while (elements.length > 0) {
+    elements[0].parentNode.removeChild(elements[0])
+  }
+}
+function normalizeString(str) {
+  return str
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+    .replace(/\s+/g, "")
+    .toLowerCase()
+}
+
+function searchCards() {
+  const searchValue = normalizeString(inputSearch.value)
+  const filteredCards = currentBoard.filter((card) =>
+    normalizeString(card.description).includes(searchValue)
+  )
+  showAllCards(filteredCards)
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault()
+  removeElementsByClass("card")
+  searchCards()
+})
 
 //меню Выбрать доску
 const formSelectBoard = document.createElement("form")
 formSelectBoard.className = "formSelectBoard"
+
 const selectBoard = document.createElement("select")
-selectBoard.className = "selectBoard"
-const opinionSelectBoard = document.createElement("option")
-opinionSelectBoard.value = ""
-const opinionSelectBoardText = document.createTextNode("Выбрать доску")
-const opinionSelectBoardOne = document.createElement("option")
-opinionSelectBoardOne.value = "boardOne"
-const opinionSelectBoardTextOne = document.createTextNode("Доска 1")
-const opinionSelectBoardTwo = document.createElement("option")
-opinionSelectBoardTwo.value = "boardTwo"
-const opinionSelectBoardTextTwo = document.createTextNode("Доска 2")
-const opinionSelectBoardThree = document.createElement("option")
-opinionSelectBoardThree.value = "boardThree"
-const opinionSelectBoardTextThree = document.createTextNode("Доска 3")
+selectBoard.setAttribute("class", "selectBoard")
+
+const optionSelectBoard = document.createElement("option")
+optionSelectBoard.value = "allBoards"
+const optionSelectBoardText = document.createTextNode("Выбрать доску")
+
+const optionSelectBoardOne = document.createElement("option")
+optionSelectBoardOne.value = "boardOne"
+const optionSelectBoardTextOne = document.createTextNode("Доска 1")
+
+const optionSelectBoardTwo = document.createElement("option")
+optionSelectBoardTwo.value = "boardTwo"
+const optionSelectBoardTextTwo = document.createTextNode("Доска 2")
+
+const optionSelectBoardThree = document.createElement("option")
+optionSelectBoardThree.value = "boardThree"
+const optionSelectBoardTextThree = document.createTextNode("Доска 3")
+
+selectBoard.addEventListener("change", (event) => {
+  removeElementsByClass("card")
+  if (event.target.value === "boardOne") {
+    currentBoard = board1
+    showAllCards(board1)
+  } else if (event.target.value === "boardTwo") {
+    currentBoard = board2
+    showAllCards(board2)
+  } else if (event.target.value === "boardThree") {
+    currentBoard = board3
+    showAllCards(board3)
+  } else if (event.target.value === "allBoards") {
+    currentBoard = allBoardsData
+    showAllCards(allBoardsData)
+  }
+})
 
 //основной блок с карточками
 const mainBoard = document.createElement("div")
