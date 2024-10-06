@@ -134,7 +134,6 @@ function searchCards() {
   )
   showAllCards(filteredCards)
 }
-
 form.addEventListener("submit", (e) => {
   e.preventDefault()
   removeElementsByClass("card")
