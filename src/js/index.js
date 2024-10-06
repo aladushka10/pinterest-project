@@ -1,5 +1,10 @@
 window.addEventListener("storage", () => {})
 
+document.addEventListener("DOMContentLoaded", () => {
+  loadAndDisplayCards()
+  createHeaderAndMain()
+})
+
 let hiddenIds = getFromLocalStorage()
 let cardItems = []
 
@@ -17,24 +22,48 @@ function getFromLocalStorage() {
 function setInLocalStorage(hiddenIds) {
   localStorage.setItem("hiddenIds", JSON.stringify(hiddenIds))
 }
-document.addEventListener("DOMContentLoaded", () => {
-  // if (todos.length > 0) {
-  //   todos.forEach((card) => {
-  //     createItem(card)
-  //   })
-  // }
-})
-const pinterest = document.getElementById("pinterest")
 
-fetch("https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`)
-    }
-    return response.json()
-  })
-  .then((json) => formCardsArray(json))
-  .catch((err) => console.error(`Fetch problem: ${err.message}`))
+function loadAndDisplayCards() {
+  fetch(
+    "https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards"
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`)
+      }
+      return response.json()
+    })
+    .then((cards) => {
+      cardItems = cards.filter((card) => !hiddenIds.includes(card.id))
+      removeElementsByClass("card")
+      showAllCards(cardItems)
+    })
+    .catch((error) => {
+      console.error(`Fetch error: ${error.message}`)
+    })
+}
+function createHeaderAndMain() {
+  const pinterest = document.getElementById("pinterest")
+  pinterest.append(header, mainBoard)
+  header.append(containerHeader)
+  containerHeader.append(wrapperHeader)
+  wrapperHeader.append(logo, inputSearch, formSelectBoard)
+  logo.append(logoImg)
+  formSelectBoard.append(selectBoard)
+  selectBoard.append(
+    opinionSelectBoard,
+    opinionSelectBoardOne,
+    opinionSelectBoardTwo,
+    opinionSelectBoardThree
+  )
+  opinionSelectBoard.append(opinionSelectBoardText)
+  opinionSelectBoardOne.append(opinionSelectBoardTextOne)
+  opinionSelectBoardTwo.append(opinionSelectBoardTextTwo)
+  opinionSelectBoardThree.append(opinionSelectBoardTextThree)
+
+  mainBoard.append(containerMainBoard)
+  containerMainBoard.append(wrapperMainBoard)
+}
 
 function formCardsArray(cards) {
   cardItems = []
@@ -393,23 +422,3 @@ modalContentBoards.append(
 modalWindowBoards.append(modalContentBoards)
 modalBackgroundBoards.append(modalWindowBoards)
 document.body.append(modalBackgroundBoards)
-
-pinterest.append(header, mainBoard)
-header.append(containerHeader)
-containerHeader.append(wrapperHeader)
-wrapperHeader.append(logo, inputSearch, formSelectBoard)
-logo.append(logoImg)
-formSelectBoard.append(selectBoard)
-selectBoard.append(
-  opinionSelectBoard,
-  opinionSelectBoardOne,
-  opinionSelectBoardTwo,
-  opinionSelectBoardThree
-)
-opinionSelectBoard.append(opinionSelectBoardText)
-opinionSelectBoardOne.append(opinionSelectBoardTextOne)
-opinionSelectBoardTwo.append(opinionSelectBoardTextTwo)
-opinionSelectBoardThree.append(opinionSelectBoardTextThree)
-
-mainBoard.append(containerMainBoard)
-containerMainBoard.append(wrapperMainBoard)
