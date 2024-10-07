@@ -262,41 +262,41 @@ function showAllCards(cards) {
   cards.forEach((card) => {
     //карточки
     //Card 1np
-    const card1 = document.createElement("div")
-    card1.id = card.id
-    card1.className = "card"
+    const cardPinterest = document.createElement("div")
+    cardPinterest.id = card.id
+    cardPinterest.className = "card"
     //видимая часть карточки
-    const partOneOfCard1 = document.createElement("div")
-    partOneOfCard1.className = "card-visible"
-    const imgCard1Wrap = document.createElement("div")
-    imgCard1Wrap.className = "card-img-wrapper"
-    const imgCard1 = document.createElement("img")
-    imgCard1.src = card.img
-    imgCard1.className = "card-img"
-    const descriptionCard1 = document.createElement("div")
-    descriptionCard1.className = "card-description-wrapper"
-    const avatarCard1 = document.createElement("div")
-    avatarCard1.className = "card-avatar-wrapper"
-    const imgAvatarCard1 = document.createElement("img")
-    imgAvatarCard1.className = "card-avatar"
-    imgAvatarCard1.src = card.avatar
-    const textCard1Wrap = document.createElement("div")
-    textCard1Wrap.className = "card-text-wrapper"
-    const textCard1 = document.createElement("p")
-    textCard1.className = "card-text"
-    const textPCard1 = document.createTextNode(`${card.description}`)
-    wrapperMainBoard.append(card1)
-    card1.append(partOneOfCard1)
-    partOneOfCard1.append(imgCard1Wrap, descriptionCard1)
+    const cardVisible = document.createElement("div")
+    cardVisible.className = "card-visible"
+    const cardImgWrap = document.createElement("div")
+    cardImgWrap.className = "card-img-wrapper"
+    const cardImg = document.createElement("img")
+    cardImg.src = card.img
+    cardImg.className = "card-img"
+    const cardDescription = document.createElement("div")
+    cardDescription.className = "card-description-wrapper"
+    const cardAvatarWrap = document.createElement("div")
+    cardAvatarWrap.className = "card-avatar-wrapper"
+    const cardAvatar = document.createElement("img")
+    cardAvatar.className = "card-avatar"
+    cardAvatar.src = card.avatar
+    const cardTextWrap = document.createElement("div")
+    cardTextWrap.className = "card-text-wrapper"
+    const cardText = document.createElement("p")
+    cardText.className = "card-text"
+    const cardTextP = document.createTextNode(`${card.description}`)
+    wrapperMainBoard.append(cardPinterest)
+    cardPinterest.append(cardVisible)
+    cardVisible.append(cardImgWrap, cardDescription)
 
-    descriptionCard1.append(avatarCard1, textCard1Wrap)
-    textCard1Wrap.append(textCard1)
-    textCard1.append(textPCard1)
-    avatarCard1.append(imgAvatarCard1)
+    cardDescription.append(cardAvatarWrap, cardTextWrap)
+    cardTextWrap.append(cardText)
+    cardText.append(cardTextP)
+    cardAvatarWrap.append(cardAvatar)
 
     // часть карточки при наведении
-    const partTwoOfCard1 = document.createElement("div")
-    partTwoOfCard1.className = "card-hover"
+    const cardHover = document.createElement("div")
+    cardHover.className = "card-hover"
     // Кнопка Добавить на доску
     const addBtn = document.createElement("button")
     addBtn.id = "addBtn"
@@ -324,8 +324,8 @@ function showAllCards(cards) {
     const hideBtnText = document.createTextNode("Скрыть со страницы")
     hideBtn.append(hideBtnText)
     hideBtn.addEventListener("click", () => {
-      card1.style.filter = "blur(8px)"
-      partTwoOfCard1.style.display = "none"
+      cardPinterest.style.filter = "blur(8px)"
+      cardHover.style.display = "none"
       hiddenIds.push(card.id)
       setInLocalStorage(hiddenIds)
       board1 = board1.filter((card) => !hiddenIds.includes(card.id))
@@ -348,8 +348,8 @@ function showAllCards(cards) {
       complainForm.style.display = "block"
       document.body.style.overflow = "hidden"
     })
-    imgCard1Wrap.append(imgCard1, partTwoOfCard1)
-    partTwoOfCard1.append(addBtn, hideBtn, complainBtn)
+    cardImgWrap.append(cardImg, cardHover)
+    cardHover.append(addBtn, hideBtn, complainBtn)
   })
 }
 
