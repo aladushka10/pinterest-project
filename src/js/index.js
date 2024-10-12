@@ -1,6 +1,6 @@
-window.addEventListener("storage", () => {})
+// window.addEventListener("storage", () => {})
 
-let hiddenIds = getFromLocalStorage()
+// let hiddenIds = getFromLocalStorage()
 let cardItems = []
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -11,60 +11,60 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 let selectedBoard = getSelectedBoardFromLocalStorage()
 let currentBoard = []
-let board1 = getBoard1FromLocalStorage()
-let board2 = getBoard2FromLocalStorage()
-let board3 = getBoard3FromLocalStorage()
+// let board1 = getBoard1FromLocalStorage()
+// let board2 = getBoard2FromLocalStorage()
+// let board3 = getBoard3FromLocalStorage()
 
 function updateBoard() {
-  const $select = document.querySelector("select")
-  $select.value = selectedBoard
+  const select = document.getElementById("select")
+  select.value = selectedBoard
   selectBoard.dispatchEvent(new Event("change"))
 }
 
-function getFromLocalStorage() {
-  if (localStorage.getItem("hiddenIds")) {
-    return JSON.parse(localStorage.getItem("hiddenIds"))
-  }
-  return []
-}
-function getBoard1FromLocalStorage() {
-  if (localStorage.getItem("board1")) {
-    return JSON.parse(localStorage.getItem("board1"))
-  }
-  return []
-}
-function getBoard2FromLocalStorage() {
-  if (localStorage.getItem("board2")) {
-    return JSON.parse(localStorage.getItem("board2"))
-  }
-  return []
-}
-function getBoard3FromLocalStorage() {
-  if (localStorage.getItem("board3")) {
-    return JSON.parse(localStorage.getItem("board3"))
-  }
-  return []
-}
+// function getFromLocalStorage() {
+//   if (localStorage.getItem("hiddenIds")) {
+//     return JSON.parse(localStorage.getItem("hiddenIds"))
+//   }
+//   return []
+// }
+// function getBoard1FromLocalStorage() {
+//   if (localStorage.getItem("board1")) {
+//     return JSON.parse(localStorage.getItem("board1"))
+//   }
+//   return []
+// }
+// function getBoard2FromLocalStorage() {
+//   if (localStorage.getItem("board2")) {
+//     return JSON.parse(localStorage.getItem("board2"))
+//   }
+//   return []
+// }
+// function getBoard3FromLocalStorage() {
+//   if (localStorage.getItem("board3")) {
+//     return JSON.parse(localStorage.getItem("board3"))
+//   }
+//   return []
+// }
 function getSelectedBoardFromLocalStorage() {
   if (localStorage.getItem("selectedBoard")) {
     return JSON.parse(localStorage.getItem("selectedBoard"))
   }
   return "allBoards"
 }
-function setInLocalStorage(hiddenIds) {
-  localStorage.setItem("hiddenIds", JSON.stringify(hiddenIds))
-}
+// function setInLocalStorage(hiddenIds) {
+//   localStorage.setItem("hiddenIds", JSON.stringify(hiddenIds))
+// }
 
-function setBoard1InLocalStorage(board1) {
-  localStorage.setItem("board1", JSON.stringify(board1))
-}
+// function setBoard1InLocalStorage(board1) {
+//   localStorage.setItem("board1", JSON.stringify(board1))
+// }
 
-function setBoard2InLocalStorage(board2) {
-  localStorage.setItem("board2", JSON.stringify(board2))
-}
-function setBoard3InLocalStorage(board3) {
-  localStorage.setItem("board3", JSON.stringify(board3))
-}
+// function setBoard2InLocalStorage(board2) {
+//   localStorage.setItem("board2", JSON.stringify(board2))
+// }
+// function setBoard3InLocalStorage(board3) {
+//   localStorage.setItem("board3", JSON.stringify(board3))
+// }
 
 function setSelectedBoardInLocalStorage(selectedBoard) {
   localStorage.setItem("selectedBoard", JSON.stringify(selectedBoard))
@@ -73,7 +73,7 @@ function setSelectedBoardInLocalStorage(selectedBoard) {
 async function loadAndDisplayCards() {
   try {
     const response = await fetch(
-      "https://66f58852436827ced974485e.mockapi.io/api/pinterest_project/cards"
+      "https://66f511569aa4891f2a23ba1d.mockapi.io/src/cards"
     )
     if (!response.ok) {
       throw new Error(`HTTP error: ${response.status}`)
@@ -81,21 +81,21 @@ async function loadAndDisplayCards() {
 
     const json = await response.json()
 
-    cardItems = json.filter((card) => !hiddenIds.includes(card.id))
+    cardItems = json
 
     let partition = cardItems.length / 5
-    if (board1.length == 0) {
-      board1 = json.slice(partition, 2 * partition)
-      setBoard1InLocalStorage(board1)
-    }
-    if (board2.length == 0) {
-      board2 = json.slice(2 * partition, 3 * partition)
-      setBoard2InLocalStorage(board2)
-    }
-    if (board3.length == 0) {
-      board3 = json.slice(3 * partition, 4 * partition)
-      setBoard3InLocalStorage(board3)
-    }
+    // if (board1.length == 0) {
+    //   board1 = json.slice(partition, 2 * partition)
+    //   setBoard1InLocalStorage(board1)
+    // }
+    // if (board2.length == 0) {
+    //   board2 = json.slice(2 * partition, 3 * partition)
+    //   setBoard2InLocalStorage(board2)
+    // }
+    // if (board3.length == 0) {
+    //   board3 = json.slice(3 * partition, 4 * partition)
+    //   setBoard3InLocalStorage(board3)
+    // }
 
     currentBoard = cardItems
 
@@ -260,62 +260,69 @@ let lastAddCardClicked = null
 
 function showAllCards(cards) {
   cards.forEach((card) => {
-    //карточки
-    //Card 1np
-    const cardPinterest = document.createElement("div")
-    cardPinterest.id = card.id
-    cardPinterest.className = "card"
-    //видимая часть карточки
-    const cardVisible = document.createElement("div")
-    cardVisible.className = "card-visible"
-    const cardImgWrap = document.createElement("div")
-    cardImgWrap.className = "card-img-wrapper"
-    const cardImg = document.createElement("img")
-    cardImg.src = card.img
-    cardImg.className = "card-img"
-    const cardDescription = document.createElement("div")
-    cardDescription.className = "card-description-wrapper"
-    const cardAvatarWrap = document.createElement("div")
-    cardAvatarWrap.className = "card-avatar-wrapper"
-    const cardAvatar = document.createElement("img")
-    cardAvatar.className = "card-avatar"
-    cardAvatar.src = card.avatar
-    const cardTextWrap = document.createElement("div")
-    cardTextWrap.className = "card-text-wrapper"
-    const cardText = document.createElement("p")
-    cardText.className = "card-text"
-    const cardTextP = document.createTextNode(`${card.description}`)
-    wrapperMainBoard.append(cardPinterest)
-    cardPinterest.append(cardVisible)
-    cardVisible.append(cardImgWrap, cardDescription)
+    if (!card.hide) {
+      //карточки
+      //Card 1np
+      const cardPinterest = document.createElement("div")
+      cardPinterest.id = card.id
+      cardPinterest.className = "card"
+      //видимая часть карточки
+      const cardVisible = document.createElement("div")
+      cardVisible.className = "card-visible"
+      const cardImgWrap = document.createElement("div")
+      cardImgWrap.className = "card-img-wrapper"
+      const cardImg = document.createElement("img")
+      cardImg.src = card.img
+      cardImg.className = "card-img"
+      const cardDescription = document.createElement("div")
+      cardDescription.className = "card-description-wrapper"
+      const cardAvatarWrap = document.createElement("div")
+      cardAvatarWrap.className = "card-avatar-wrapper"
+      const cardAvatar = document.createElement("img")
+      cardAvatar.className = "card-avatar"
+      cardAvatar.src = card.avatar
+      const cardTextWrap = document.createElement("div")
+      cardTextWrap.className = "card-text-wrapper"
+      const cardText = document.createElement("p")
+      cardText.className = "card-text"
+      const cardTextP = document.createTextNode(`${card.description}`)
 
-    cardDescription.append(cardAvatarWrap, cardTextWrap)
-    cardTextWrap.append(cardText)
-    cardText.append(cardTextP)
-    cardAvatarWrap.append(cardAvatar)
+      if (card.id < 10) card.board = "boardOne"
+      if (card.id > 15 && card.id < 27) card.board = "boardTwo"
+      if (card.id > 35 && card.id < 48) card.board = "boardThree"
 
-    // часть карточки при наведении
-    const cardHover = document.createElement("div")
-    cardHover.className = "card-hover"
-    // Кнопка Добавить на доску
-    const addBtn = document.createElement("button")
-    addBtn.id = "addBtn"
-    addBtn.className = "btn"
-    const addBtnText = document.createTextNode("Добавить на доску")
-    addBtn.append(addBtnText)
-    addBtn.addEventListener("click", () => {
-      if (
-        board1.includes(card) &&
-        board2.includes(card) &&
-        board3.includes(card)
-      ) {
-        alert("Эта карточка уже есть на всех досках")
-      } else {
-        modalBackgroundBoards.style.display = "block"
-        document.body.style.overflow = "hidden"
-        lastAddCardClicked = card
-      }
-    })
+      wrapperMainBoard.append(cardPinterest)
+      cardPinterest.append(cardVisible)
+      cardVisible.append(cardImgWrap, cardDescription)
+
+      cardDescription.append(cardAvatarWrap, cardTextWrap)
+      cardTextWrap.append(cardText)
+      cardText.append(cardTextP)
+      cardAvatarWrap.append(cardAvatar)
+
+      // часть карточки при наведении
+      const cardHover = document.createElement("div")
+      cardHover.className = "card-hover"
+      // Кнопка Добавить на доску
+      const addBtn = document.createElement("button")
+      addBtn.id = "addBtn"
+      addBtn.className = "btn"
+      const addBtnText = document.createTextNode("Добавить на доску")
+      addBtn.append(addBtnText)
+      addBtn.addEventListener("click", () => {
+        if (
+          board1.includes(card) &&
+          board2.includes(card) &&
+          board3.includes(card)
+        ) {
+          alert("Эта карточка уже есть на всех досках")
+        } else {
+          modalBackgroundBoards.style.display = "block"
+          document.body.style.overflow = "hidden"
+          lastAddCardClicked = card
+        }
+      })
+    }
 
     // Кнопка Скрыть со страницы
     const hideBtn = document.createElement("button")
@@ -326,14 +333,9 @@ function showAllCards(cards) {
     hideBtn.addEventListener("click", () => {
       cardPinterest.style.filter = "blur(8px)"
       cardHover.style.display = "none"
-      hiddenIds.push(card.id)
-      setInLocalStorage(hiddenIds)
-      board1 = board1.filter((card) => !hiddenIds.includes(card.id))
-      setBoard1InLocalStorage(board1)
-      board2 = board2.filter((card) => !hiddenIds.includes(card.id))
-      setBoard2InLocalStorage(board2)
-      board3 = board3.filter((card) => !hiddenIds.includes(card.id))
-      setBoard3InLocalStorage(board3)
+      //hiddenIds.push(card.id)
+      //setInLocalStorage(hiddenIds)
+      card.hide = true
     })
 
     // Кнопка Пожаловаться
