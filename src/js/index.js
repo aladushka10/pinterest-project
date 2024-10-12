@@ -112,7 +112,7 @@ function createHeaderAndMain() {
   header.append(containerHeader)
   containerHeader.append(wrapperHeader)
   wrapperHeader.append(logo, inputSearch, formSelectBoard)
-  logo.append(logoImg)
+  logo.append(logoImg, logoImgMob)
   formSelectBoard.append(selectBoard)
   selectBoard.append(
     optionSelectBoard,
@@ -148,6 +148,11 @@ const logoImg = document.createElement("img")
 logoImg.src =
   "https://upload.wikimedia.org/wikipedia/commons/3/35/Pinterest_Logo.svg"
 logoImg.className = "logo-img"
+
+const logoImgMob = document.createElement("img")
+logoImgMob.src =
+  "https://pngimg.com/uploads/pinterest/pinterest_PNG66.png"
+logoImgMob.className = "logo-img-mob"
 
 //строка поиска
 const form = document.createElement("form")
@@ -273,6 +278,29 @@ function showAllCards(cards) {
     const cardImg = document.createElement("img")
     cardImg.src = card.img
     cardImg.className = "card-img"
+    
+    // меню для планшетов
+    const cardHoverBtnTablet = document.createElement('button')
+    cardHoverBtnTablet.className = 'card-hover-btn-tablet'
+    const cardHoverBtnTabletText = document.createTextNode('...')
+
+    const cardHoverBtnXTablet = document.createElement('button')
+    cardHoverBtnXTablet.className = 'card-hover-btn-x-tablet'
+    const cardHoverBtnXTabletText = document.createTextNode('x')
+    
+    cardHoverBtnTablet.addEventListener("click", () => {
+      cardHover.style.opacity = '1'
+      cardHover.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+      cardHoverBtnXTablet.style.display = 'block'
+      cardHoverBtnTablet.style.opacity = '0'
+
+    })
+    cardHoverBtnXTablet.addEventListener("click", () => {
+      cardHover.style.opacity = '0'
+      cardHoverBtnXTablet.style.display = 'none'
+      cardHoverBtnTablet.style.opacity = '1'
+    })
+
     const cardDescription = document.createElement("div")
     cardDescription.className = "card-description-wrapper"
     const cardAvatarWrap = document.createElement("div")
@@ -285,9 +313,12 @@ function showAllCards(cards) {
     const cardText = document.createElement("p")
     cardText.className = "card-text"
     const cardTextP = document.createTextNode(`${card.description}`)
+
     wrapperMainBoard.append(cardPinterest)
     cardPinterest.append(cardVisible)
     cardVisible.append(cardImgWrap, cardDescription)
+    cardHoverBtnTablet.append(cardHoverBtnTabletText)
+    cardHoverBtnXTablet.append(cardHoverBtnXTabletText)
 
     cardDescription.append(cardAvatarWrap, cardTextWrap)
     cardTextWrap.append(cardText)
@@ -348,7 +379,7 @@ function showAllCards(cards) {
       complainForm.style.display = "block"
       document.body.style.overflow = "hidden"
     })
-    cardImgWrap.append(cardImg, cardHover)
+    cardImgWrap.append(cardImg, cardHover, cardHoverBtnTablet, cardHoverBtnXTablet)
     cardHover.append(addBtn, hideBtn, complainBtn)
   })
 }
