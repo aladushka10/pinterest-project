@@ -38,7 +38,7 @@
   }
   @media (max-width: 320px) {
     width: 120px;
- }
+  }
 }
 .card-avatar-wrapper {
   width: 50px;
@@ -53,8 +53,7 @@
   }
   @media (max-width: 320px) {
     display: none;
-
- }  
+  }
 }
 .card-avatar {
   object-fit: cover;
@@ -68,7 +67,6 @@
     height: 0px;
     overflow: hidden;
     text-overflow: ellipsis;
-    
   }
 }
 .card-img-wrapper {
@@ -113,50 +111,50 @@
   background-color: rgba(255, 255, 255, 0.4);
 }
 .card-hover-btn-tablet {
-position: absolute;
-left: 73%;
-top: 5%;
-width: 40px;
-height: 40px;
-border-radius: 50%;
-border: none;
-background-color: #fff;
-font-size: 18px;
-text-align: center;
-line-height: 30px;
-opacity: 0;
-@media (max-width: 1024px) {
-  opacity: 1;
-}
-@media (max-width: 320px) {
-  width: 30px;
-  height: 30px;
-}
+  position: absolute;
+  left: 73%;
+  top: 5%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff;
+  font-size: 18px;
+  text-align: center;
+  line-height: 30px;
+  opacity: 0;
+  @media (max-width: 1024px) {
+    opacity: 1;
+  }
+  @media (max-width: 320px) {
+    width: 30px;
+    height: 30px;
+  }
 }
 .card-hover-btn-tablet:active {
-background-color: rgb(202, 7, 7);
-color: #fff;
+  background-color: rgb(202, 7, 7);
+  color: #fff;
 }
 .card-hover-btn-x-tablet {
-position: absolute;
-left: 73%;
-top: 5%;
-width: 35px;
-height: 35px;
-border-radius: 50%;
-background-color: #fff;
-color: rgb(202, 7, 7);
-font-size: 20px;
-text-align: center;
-line-height: 30px;
-border: none;
-display: none;
-@media (max-width: 320px) {
-  width: 25px;
-  height: 25px;
-  font-size: 18px;
-  line-height: 25px;
-}
+  position: absolute;
+  left: 73%;
+  top: 5%;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: rgb(202, 7, 7);
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+  border: none;
+  display: none;
+  @media (max-width: 320px) {
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    line-height: 25px;
+  }
 }
 .addToBoard {
   display: none;
@@ -185,11 +183,15 @@ display: none;
     font-size: 11px;
     margin-bottom: 3px;
   }
-}
-.btn:hover {
-  background-color: rgb(202, 7, 7);
-  color: #fff;
+  &:hover {
+    background-color: rgb(202, 7, 7);
+    color: #fff;
+    &:active {
+      background-color: rgb(161, 22, 22);
+      color: #fff;
+    }
+  }
 }
 #complainBtn {
   margin-bottom: 0px;
-}  
+}
