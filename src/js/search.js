@@ -35,6 +35,7 @@ export function createSearch() {
   }
 
   function searchCards() {
+    console.log(currentBoard)
     const searchValue = normalizeString(inputSearch.value)
     const filteredCards = currentBoard.filter((card) =>
       normalizeString(card.description).includes(searchValue)

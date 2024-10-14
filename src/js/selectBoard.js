@@ -2,6 +2,7 @@ import { getFromLocalStorage, setInLocalStorage } from "./localStorage"
 import { showAllCards } from "./createCards"
 import { removeElementsByClass } from "./search"
 import { cardItems, currentBoard } from "./loadAndDisplayCards"
+import { setCurrentBoard } from "./loadAndDisplayCards"
 
 export let selectedBoard = getFromLocalStorage("selectedBoard") || "allBoards"
 export const formSelectBoard = document.createElement("form")
@@ -48,6 +49,8 @@ export function createSelectBoard() {
       actualBoard = visibleCards
       selectedBoard = "allBoards"
     }
+
+    setCurrentBoard(actualBoard)
     setInLocalStorage("selectedBoard", selectedBoard)
     showAllCards(actualBoard)
   })

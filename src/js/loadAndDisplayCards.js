@@ -3,6 +3,11 @@ import { showAllCards } from "./createCards"
 
 export let cardItems = []
 export let currentBoard = []
+
+export function setCurrentBoard(board) {
+  currentBoard = board
+}
+
 export async function loadAndDisplayCards() {
   try {
     const response = await fetch(
