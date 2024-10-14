@@ -19,6 +19,10 @@ export function createHeader() {
   logoImg.src =
     "https://upload.wikimedia.org/wikipedia/commons/3/35/Pinterest_Logo.svg"
   logoImg.className = "logo-img"
+  const logoImgMob = document.createElement("img")
+  logoImgMob.src =
+  "https://pngimg.com/uploads/pinterest/pinterest_PNG66.png"
+  logoImgMob.className = "logo-img-mob"
 
   createSearch()
   createSelectBoard()
@@ -27,5 +31,5 @@ export function createHeader() {
   header.append(containerHeader)
   containerHeader.append(wrapperHeader)
   wrapperHeader.append(logo, inputSearch, formSelectBoard)
-  logo.append(logoImg)
+  logo.append(logoImg, logoImgMob)
 }
