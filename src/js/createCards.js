@@ -23,6 +23,25 @@ export function showAllCards(cards) {
     const cardImg = document.createElement("img")
     cardImg.src = card.img
     cardImg.className = "card-img"
+    const cardHoverBtnTablet = document.createElement('button')
+    cardHoverBtnTablet.className = 'card-hover-btn-tablet'
+    const cardHoverBtnTabletText = document.createTextNode('...')
+
+    const cardHoverBtnXTablet = document.createElement('button')
+    cardHoverBtnXTablet.className = 'card-hover-btn-x-tablet'
+    const cardHoverBtnXTabletText = document.createTextNode('x')
+    cardHoverBtnTablet.addEventListener("click", () => {
+        cardHover.style.opacity = '1'
+        cardHover.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+        cardHoverBtnXTablet.style.display = 'block'
+        cardHoverBtnTablet.style.opacity = '0'
+
+    })
+    cardHoverBtnXTablet.addEventListener("click", () => {
+        cardHover.style.opacity = '0'
+        cardHoverBtnXTablet.style.display = 'none'
+        cardHoverBtnTablet.style.opacity = '1'
+    })
     const cardDescription = document.createElement("div")
     cardDescription.className = "card-description-wrapper"
     const cardAvatarWrap = document.createElement("div")
@@ -39,6 +58,8 @@ export function showAllCards(cards) {
     wrapperMainBoard.append(cardPinterest)
     cardPinterest.append(cardVisible)
     cardVisible.append(cardImgWrap, cardDescription)
+    cardHoverBtnTablet.append(cardHoverBtnTabletText)
+    cardHoverBtnXTablet.append(cardHoverBtnXTabletText)
 
     cardDescription.append(cardAvatarWrap, cardTextWrap)
     cardTextWrap.append(cardText)
@@ -90,7 +111,7 @@ export function showAllCards(cards) {
       complainForm.style.display = "block"
       document.body.style.overflow = "hidden"
     })
-    cardImgWrap.append(cardImg, cardHover)
+    cardImgWrap.append(cardImg, cardHover, cardHoverBtnTablet, cardHoverBtnXTablet)
     cardHover.append(addBtn, hideBtn, complainBtn)
   })
 }
