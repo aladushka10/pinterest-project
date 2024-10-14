@@ -19,21 +19,17 @@ export function createSelectBoard() {
   selectBoard.setAttribute("class", "select-board")
   selectBoard.id = "select-board"
 
-  const optionSelectBoard = document.createElement("option")
-  optionSelectBoard.value = "allBoards"
-  const optionSelectBoardText = document.createTextNode("Выбрать доску")
+  function createBoardOption(value, text) {
+    const option = document.createElement("option")
+    option.value = value
+    option.textContent = text
+    return option
+  }
 
-  const optionSelectBoardOne = document.createElement("option")
-  optionSelectBoardOne.value = "boardOne"
-  const optionSelectBoardTextOne = document.createTextNode("Доска 1")
-
-  const optionSelectBoardTwo = document.createElement("option")
-  optionSelectBoardTwo.value = "boardTwo"
-  const optionSelectBoardTextTwo = document.createTextNode("Доска 2")
-
-  const optionSelectBoardThree = document.createElement("option")
-  optionSelectBoardThree.value = "boardThree"
-  const optionSelectBoardTextThree = document.createTextNode("Доска 3")
+  const optionSelectBoard = createBoardOption("allBoards", "Выбрать доску")
+  const optionSelectBoardOne = createBoardOption("boardOne", "Доска 1")
+  const optionSelectBoardTwo = createBoardOption("boardTwo", "Доска 2")
+  const optionSelectBoardThree = createBoardOption("boardThree", "Доска 3")
 
   selectBoard.addEventListener("change", (event) => {
     removeElementsByClass("card")
@@ -63,8 +59,4 @@ export function createSelectBoard() {
     optionSelectBoardTwo,
     optionSelectBoardThree
   )
-  optionSelectBoard.append(optionSelectBoardText)
-  optionSelectBoardOne.append(optionSelectBoardTextOne)
-  optionSelectBoardTwo.append(optionSelectBoardTextTwo)
-  optionSelectBoardThree.append(optionSelectBoardTextThree)
 }
