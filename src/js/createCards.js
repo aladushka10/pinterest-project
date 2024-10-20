@@ -10,14 +10,11 @@ export let lastComplainCardClicked = null
 export let lastAddCardClicked = null
 
 function getRandomPastelColor () {
-  const getValue = () => Math.floor(Math.random() * 127 + 128); 
-  const a = getValue();
-  const b = getValue();
-  const c = getValue();
-  const d = getValue();
-  const e = getValue();
-  const f = getValue();
-  return `rgb(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`;
+    const getValue = () => Math.floor(Math.random() * 127 + 128); 
+    const r = getValue();
+    const g = getValue();
+    const b = getValue();
+    return `rgb(${r}, ${g}, ${b})`;
   }
 
 export function showAllCards(cards) {
