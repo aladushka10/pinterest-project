@@ -5,10 +5,17 @@ import {
   complainForm,
 } from "./modalComplaint"
 import { createModalAddBoard, modalBackgroundBoards } from "./modalAddBoard"
-import { currentBoard } from "./loadAndDisplayCards"
 
 export let lastComplainCardClicked = null
 export let lastAddCardClicked = null
+
+function getRandomPastelColor () {
+    const getValue = () => Math.floor(Math.random() * 127 + 128); 
+    const r = getValue();
+    const g = getValue();
+    const b = getValue();
+    return `rgb(${r}, ${g}, ${b})`;
+  }
 
 export function showAllCards(cards) {
   cards.forEach((card) => {
@@ -20,9 +27,15 @@ export function showAllCards(cards) {
     cardVisible.className = "card-visible"
     const cardImgWrap = document.createElement("div")
     cardImgWrap.className = "card-img-wrapper"
+    cardImgWrap.style.backgroundColor = getRandomPastelColor();
     const cardImg = document.createElement("img")
     cardImg.src = card.img
     cardImg.className = "card-img"
+    cardImg.setAttribute("loading" , "lazy")
+    cardImg.addEventListener("load", () => {
+      cardImgWrap.style.backgroundColor = "transparent"
+    })
+
     const cardHoverBtnTablet = document.createElement('button')
     cardHoverBtnTablet.className = 'card-hover-btn-tablet'
     const cardHoverBtnTabletText = document.createTextNode('...')
