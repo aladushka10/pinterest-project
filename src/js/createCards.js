@@ -31,6 +31,7 @@ export function showAllCards(cards) {
     const cardImg = document.createElement("img")
     cardImg.src = card.img
     cardImg.className = "card-img"
+    cardImg.setAttribute("loading" , "lazy")
     cardImg.addEventListener("load", () => {
       cardImgWrap.style.backgroundColor = "transparent"
     })
